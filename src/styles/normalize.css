@@ -20,7 +20,7 @@
   у которых есть атрибут class
  */
 body,
-:where(blockquote, figure):where([class]) {
+:where(blockquote, figure, fieldset):where([class]) {
     margin: 0;
 }
 
@@ -48,7 +48,6 @@ body,
 }
 
 :where(fieldset[class]) {
-    margin-left: 0;
     padding: 0;
     border: none;
 }
@@ -80,7 +79,7 @@ p {
   Внешний отступ вниз для параграфа без атрибута class,
   который расположен не последним среди своих соседних элементов
  */
-:where(p:not([class]):not(:last-child)) {
+p:where(:not([class]):not(:last-child)) {
     margin-bottom: var(--paragraphMarginBottom);
 }
 
@@ -116,13 +115,9 @@ html {
       при появлении / исчезновении скроллбара
      */
     scrollbar-gutter: stable;
-}
-
-/**
-  Плавный скролл
- */
-html,
-:has(:target) {
+    /**
+      Плавный скролл
+     */
     scroll-behavior: smooth;
 }
 
@@ -131,7 +126,7 @@ body {
       Пригодится в большинстве ситуаций
       (когда, например, нужно будет "прижать" футер к низу сайта)
      */
-    min-height: 100%;
+    /*min-height: 100%;*/
     /**
       Унифицированный интерлиньяж
      */
@@ -151,6 +146,13 @@ a:where([class]) {
 button,
 label {
     cursor: pointer;
+}
+
+/**
+  Убирает серую подсветку при тапе на мобильных устройствах (iOS/Android)
+ */
+button {
+    -webkit-tap-highlight-color: transparent;
 }
 
 /**
@@ -205,8 +207,4 @@ svg * {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
-}
-
-a {
-    text-decoration:none;
 }

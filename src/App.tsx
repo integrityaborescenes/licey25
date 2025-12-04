@@ -1,5 +1,6 @@
 import "./styles/index.css";
 import Header from "./components/Header/Header.tsx";
+import MainScreenBody from "./components/MainScreenBody/MainScreenBody.tsx";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
         title="Эхо веков"
         description="Исторический музей 25 лингвистического лицея"
       />
+      <MainScreenBody />
     </>
   );
 }
