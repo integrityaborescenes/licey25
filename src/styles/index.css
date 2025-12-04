@@ -1,0 +1,15 @@
+@import 'variables.css';
+@import 'fonts.css';
+@import 'normalize.css';
+
+body {
+    /*временно*/
+    background: radial-gradient(98.92% 96.55% at 50% 92.15%, #135EB3 0%, #1184FF 50%, #8BC6FF 100%);
+}
+
+html {
+    width: 3840px;
+    height: 2160px;
+}
+
+
