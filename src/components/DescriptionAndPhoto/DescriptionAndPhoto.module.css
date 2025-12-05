@@ -8,7 +8,7 @@
   gap: 40px;
 }
 .container .description {
-  max-width: 2440px;
+  min-width: 2440px;
   width: 100%;
   padding: 56px;
   flex-direction: column;

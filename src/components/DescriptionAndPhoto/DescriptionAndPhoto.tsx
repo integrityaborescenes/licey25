@@ -1,5 +1,6 @@
 import styles from "./DescriptionAndPhoto.module.scss";
 import { useGetMainScreenDataQuery } from "../../store/services/mainScreenData.api.ts";
+import ImagesSlider from "../ImageSlider/ImagesSlider.tsx";
 
 const DescriptionAndPhoto = () => {
   const { data } = useGetMainScreenDataQuery();
@@ -14,9 +15,7 @@ const DescriptionAndPhoto = () => {
             <p key={idx}>{line}</p>
           ))}
       </div>
-      <div className={styles.photo}>
-        <img src="http://licey25.test.itlabs.top/licey/rectangle-14-692ed0ec95076839131914.webp" />
-      </div>
+      <ImagesSlider />
     </div>
   );
 };
