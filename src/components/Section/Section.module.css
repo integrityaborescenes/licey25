@@ -24,6 +24,34 @@
   width: 100%;
   height: 72px;
 }
+.section.archiveCategoriesBlock {
+  max-width: 3576px;
+  width: 100%;
+  height: 280.2px;
+  padding: 56px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.section.archiveCategoriesBlock .buttonToSection {
+  max-width: 72px;
+  width: 100%;
+  height: 72px;
+}
+.section.archiveSelectedBlock {
+  max-width: 1147.3px;
+  width: 100%;
+  height: 528px;
+  padding: 56px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.section.archiveSelectedBlock .buttonToSection {
+  max-width: 72px;
+  width: 100%;
+  height: 72px;
+}
 .section p {
   margin: 0;
   align-self: stretch;

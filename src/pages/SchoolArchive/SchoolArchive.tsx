@@ -1,5 +1,6 @@
 import Header from "../../components/Header/Header.tsx";
 import Footer from "../../components/Footer/Footer.tsx";
+import SchoolArchiveSections from "../../components/SchoolArchiveSections/SchoolArchiveSections.tsx";
 
 const SchoolArchive = () => {
   return (
@@ -8,7 +9,9 @@ const SchoolArchive = () => {
         <Header title="Школьный архив" />
       </header>
 
-      <main></main>
+      <main>
+        <SchoolArchiveSections />
+      </main>
 
       <footer>
         <Footer mainPage={false} />

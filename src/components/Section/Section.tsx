@@ -8,7 +8,15 @@ type Props = {
 const Section = ({ title, block }: Props) => {
   return (
     <div
-      className={`${styles.section} ${block === "lycey" ? styles.lyceyBlock : ""}`}
+      className={`${styles.section} ${
+        block === "lycey"
+          ? styles.lyceyBlock
+          : block === "archiveCategories"
+            ? styles.archiveCategoriesBlock
+            : block === "archiveSelected"
+              ? styles.archiveSelectedBlock
+              : ""
+      }`}
     >
       <p>{title}</p>
       <div className={styles.buttonToSection}>

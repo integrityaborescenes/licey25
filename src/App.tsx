@@ -5,6 +5,8 @@ import MuseumHistory from "./pages/MuseumHistory/MuseumHistory.tsx";
 import Lyceum25WW from "./pages/Lyceum25WW/Lyceum25WW.tsx";
 import LyceumSelectedSections from "./pages/LyceumSelectedSections/LyceumSelectedSections.tsx";
 import SchoolArchive from "./pages/SchoolArchive/SchoolArchive.tsx";
+import ArchiveSelectedCategory from "./pages/ArchiveSelectedCategory/ArchiveSelectedCategory.tsx";
+import Photos from "./pages/Photos/Photos.tsx";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="/lyceumWW" element={<Lyceum25WW />} />
         <Route path="/lyceumWW/:id" element={<LyceumSelectedSections />} />
         <Route path="/archive" element={<SchoolArchive />} />
+        <Route path="/archive/:id" element={<ArchiveSelectedCategory />} />
+        <Route path="/archive/:id/:id" element={<Photos />} />
       </Routes>
     </BrowserRouter>
   );

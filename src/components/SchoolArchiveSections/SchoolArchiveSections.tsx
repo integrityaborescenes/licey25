@@ -1,19 +1,20 @@
 import styles from "./SchoolArchiveSections.module.scss";
-import type { ILyceyData } from "../../types/lyceyData.types.ts";
 import { Link } from "react-router";
 import Section from "../Section/Section.tsx";
-import { useGetLiceyDataQuery } from "../../store/services/lyceyData.api.ts";
-
+import { useGetArchiveCategoriesQuery } from "../../store/services/archiveCategories.api.ts";
+import type { IArchiveCategories } from "../../types/archiveCategories.types.ts";
 const SchoolArchiveSections = () => {
-  const { data } = useGetLiceyDataQuery();
-
+  const { data } = useGetArchiveCategoriesQuery();
   return (
-    <div className={styles.lyceySections}>
+    <div className={styles.archiveCategoriesSections}>
       <div className={styles.sectionContainer}>
-        {data?.map((info: ILyceyData) => (
+        {data?.map((info: IArchiveCategories) => (
           <div className={styles.wrap} key={info?.id}>
-            <Link to={`/lyceumWW/${info?.id}`} state={info}>
-              <Section title={info?.title} block={"archive"}></Section>
+            <Link to={`/archive/${info?.id}`} state={info}>
+              <Section
+                title={info?.title}
+                block={"archiveCategories"}
+              ></Section>
             </Link>
           </div>
         ))}

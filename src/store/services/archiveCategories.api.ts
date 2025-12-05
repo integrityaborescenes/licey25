@@ -5,7 +5,7 @@ export const archiveCategoriesApi = createApi({
   reducerPath: "archiveCategoriesApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://licey25.test.itlabs.top/api/" }),
   endpoints: (build) => ({
-    getArchiveCategories: build.query<IArchiveCategories, void>({
+    getArchiveCategories: build.query<IArchiveCategories[], void>({
       query: () => "archive/categories",
       keepUnusedDataFor: 600,
     }),

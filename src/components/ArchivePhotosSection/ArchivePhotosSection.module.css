@@ -1,0 +1,42 @@
+.archiveSelectedCategorySections {
+  margin: 0 auto;
+  max-width: 3680px;
+  width: 100%;
+  height: 1665px;
+  padding: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 120px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.archiveSelectedCategorySections .sectionContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 40px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 30px;
+}
+.archiveSelectedCategorySections .sectionContainer::-webkit-scrollbar {
+  width: 16px;
+}
+.archiveSelectedCategorySections .sectionContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+.archiveSelectedCategorySections .sectionContainer::-webkit-scrollbar-thumb {
+  background: var(--white);
+  border-radius: 58px;
+  min-height: 120px;
+}
+.archiveSelectedCategorySections .sectionContainer .wrap {
+  max-width: 1147.3px;
+  width: 100%;
+  height: 528px;
+}
+
+/*# sourceMappingURL=ArchivePhotosSection.module.css.map */

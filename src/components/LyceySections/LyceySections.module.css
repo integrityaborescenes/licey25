@@ -29,7 +29,7 @@
   background: transparent;
 }
 .lyceySections .sectionContainer::-webkit-scrollbar-thumb {
-  background: #12B5FF;
+  background: var(--white);
   border-radius: 58px;
   min-height: 120px;
 }

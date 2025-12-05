@@ -13,7 +13,12 @@ const mainScreenSections = () => {
       </Link>
       <Section title={"357-я стрелковая дивизия"} />
       <Section title={"Историю пишем сами"} />
-      <Section title={"Школьный архив"} />
+      <Link
+        to="/archive"
+        style={{ display: "block", width: "100%", textDecoration: "none" }}
+      >
+        <Section title={"Школьный архив"} />
+      </Link>
     </div>
   );
 };
