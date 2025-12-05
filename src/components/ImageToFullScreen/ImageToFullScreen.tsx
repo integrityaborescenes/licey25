@@ -13,21 +13,19 @@ const ImageToFullScreen = () => {
   return createPortal(
     <div className={styles.modal}>
       <div className={styles.image}>
-        <div className={styles.currentImage}>
-          <img src={`${API_BASE_URL}${image}`} draggable={false} />
-          <div
-            className={styles.closeWindow}
-            onClick={() => {
-              dispatch(closeModal());
-            }}
-          >
-            <img
-              src="/ico/closeIco.svg"
-              draggable={false}
-              width="40"
-              height="40"
-            />
-          </div>
+        <img src={`${API_BASE_URL}${image}`} draggable={false} />
+        <div
+          className={styles.closeWindow}
+          onClick={() => {
+            dispatch(closeModal());
+          }}
+        >
+          <img
+            src="/ico/closeIco.svg"
+            draggable={false}
+            width="40"
+            height="40"
+          />
         </div>
       </div>
     </div>,
