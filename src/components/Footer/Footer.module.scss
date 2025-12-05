@@ -7,6 +7,16 @@
   align-items: center;
   margin: 0 auto;
 
+  .leave {
+    background-color: transparent;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+  }
+
   &.mainPage {
     height: 80px;
   }

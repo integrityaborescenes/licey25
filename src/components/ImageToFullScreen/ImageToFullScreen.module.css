@@ -11,12 +11,6 @@
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(30.6499996185px);
 }
-.modal .closeWindow {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 89.69px;
-}
 .modal .image {
   max-width: 2665px;
   width: auto;
@@ -26,6 +20,14 @@
   justify-content: center;
   align-items: center;
   animation: smoothZoom 0.35s ease forwards;
+  position: relative;
+}
+.modal .image .closeWindow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 89.69px;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
 }
 .modal .image img {
   position: relative;
