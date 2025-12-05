@@ -194,6 +194,10 @@ svg * {
     border-color: currentColor;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
 /**
   Удаляем все анимации и переходы для людей,
   которые предпочитают их не использовать

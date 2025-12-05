@@ -1,8 +1,12 @@
 import styles from "./Footer.module.scss";
 
-const Footer = () => {
+type Props = {
+  mainPage: boolean;
+};
+
+const Footer = ({ mainPage }: Props) => {
   return (
-    <div className={styles.footer}>
+    <div className={`${styles.footer} ${mainPage ? styles.mainPage : ""}`}>
       <div className={styles.createdBy}>
         <p>Разработанно в</p>
         <img

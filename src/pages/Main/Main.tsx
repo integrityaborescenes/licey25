@@ -19,7 +19,7 @@ function Main() {
       </main>
 
       <footer>
-        <Footer />
+        <Footer mainPage={true} />
       </footer>
     </>
   );
