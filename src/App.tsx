@@ -1,28 +1,16 @@
 import "./styles/index.css";
-import Header from "./components/Header/Header.tsx";
-import MainScreenBody from "./components/MainScreenBody/MainScreenBody.tsx";
-import MainScreenSections from "./mainScreenSections/mainScreenSections.tsx";
-import Footer from "./components/Footer/Footer.tsx";
+import { BrowserRouter, Route, Routes } from "react-router";
+import Main from "./pages/Main/Main.tsx";
+import MuseumHistory from "./pages/MuseumHistory/MuseumHistory.tsx";
 
 function App() {
   return (
-    <>
-      <header>
-        <Header
-          title="Эхо веков"
-          description="Исторический музей 25 лингвистического лицея"
-        />
-      </header>
-
-      <main>
-        <MainScreenBody />
-        <MainScreenSections />
-      </main>
-
-      <footer>
-        <Footer />
-      </footer>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/museumHistory" element={<MuseumHistory />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
