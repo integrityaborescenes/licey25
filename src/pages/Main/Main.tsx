@@ -2,8 +2,15 @@ import Header from "../../components/Header/Header.tsx";
 import MainScreenBody from "../../components/MainScreenBody/MainScreenBody.tsx";
 import MainScreenSections from "../../mainScreenSections/mainScreenSections.tsx";
 import Footer from "../../components/Footer/Footer.tsx";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store.ts";
+import ImageToFullScreen from "../../imageToFullScreen/imageToFullScreen.tsx";
 
 function Main() {
+  const isModalOpen = useSelector(
+    (state: RootState) => state.isModalOpen.value,
+  );
+
   return (
     <>
       <header>
@@ -15,6 +22,7 @@ function Main() {
 
       <main>
         <MainScreenBody />
+        {isModalOpen && <ImageToFullScreen />}
         <MainScreenSections />
       </main>
 

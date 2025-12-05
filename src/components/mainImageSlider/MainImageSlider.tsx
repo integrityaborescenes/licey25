@@ -1,12 +1,16 @@
 import styles from "./MainImageSlider.module.scss";
 import { useGetMainScreenDataQuery } from "../../store/services/mainScreenData.api.ts";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../store/store.ts";
+import { openModal } from "../../store/slices/isModalOpenSlice.ts";
 const API_BASE_URL = "http://licey25.test.itlabs.top/";
 const MainImageSlider = () => {
   const { data } = useGetMainScreenDataQuery();
   const [typeSelector, setTypeSelector] = useState("Museum");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
+  const dispatch = useDispatch<AppDispatch>();
 
   const images =
     typeSelector === "Museum"
@@ -38,7 +42,7 @@ const MainImageSlider = () => {
 
   return (
     <>
-      {images.length && (
+      {images.length > 0 && (
         <div className={styles.imageSlider}>
           <div className={styles.typeSelector}>
             <button
@@ -69,6 +73,9 @@ const MainImageSlider = () => {
                   src={`${API_BASE_URL}${img.file}`}
                   alt=""
                   className={styles.slide}
+                  onClick={() => {
+                    dispatch(openModal(img.file));
+                  }}
                 />
               ))}
             </div>

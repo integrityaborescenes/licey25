@@ -1,12 +1,18 @@
 import styles from "./ImagesSlider.module.scss";
-import { useGetMainScreenDataQuery } from "../../store/services/mainScreenData.api.ts";
 import { useState } from "react";
+import { openModal } from "../../store/slices/isModalOpenSlice.ts";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../store/store.ts";
 const API_BASE_URL = "http://licey25.test.itlabs.top/";
 
-const ImagesSlider = () => {
-  const { data } = useGetMainScreenDataQuery();
-  const images = data?.mainScreenLiceyImages ?? [];
+type Props = {
+  images?: { file: string }[];
+};
+
+const ImagesSlider = ({ images }: Props) => {
+  const imageList = images ?? [];
   const [currentSlide, setCurrentSlide] = useState(0);
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <div className={styles.imageSlider}>
@@ -14,7 +20,7 @@ const ImagesSlider = () => {
         className={styles.arrowLeft}
         onClick={() =>
           setCurrentSlide((prev) =>
-            currentSlide !== 0 ? prev - 1 : images.length - 1,
+            prev !== 0 ? prev - 1 : imageList.length - 1,
           )
         }
       >
@@ -29,7 +35,7 @@ const ImagesSlider = () => {
         className={styles.arrowRight}
         onClick={() => {
           setCurrentSlide((prev) =>
-            currentSlide !== images.length - 1 ? prev + 1 : 0,
+            prev !== imageList.length - 1 ? prev + 1 : 0,
           );
         }}
       >
@@ -45,12 +51,15 @@ const ImagesSlider = () => {
           className={styles.slidesWrapper}
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
-          {images.map((img, i) => (
+          {imageList.map((img, i) => (
             <img
               key={i}
               src={`${API_BASE_URL}${img.file}`}
               alt=""
               className={styles.slide}
+              onClick={() => {
+                dispatch(openModal(img.file));
+              }}
             />
           ))}
         </div>
