@@ -19,7 +19,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    animation: smoothZoom 0.35s ease forwards;
 
     .currentImage {
       position: relative;
@@ -33,6 +33,14 @@
         right: 0;
         margin: 89.69px;
       }
+    }
+  }
+  @keyframes smoothZoom {
+    0% {
+      transform: scale(0.97);
+    }
+    100% {
+      transform: scale(1);
     }
   }
 }
