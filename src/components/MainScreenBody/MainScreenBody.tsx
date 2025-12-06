@@ -1,6 +1,6 @@
 import styles from "./MainScreenBody.module.scss";
 import { useGetMainScreenDataQuery } from "../../store/services/mainScreenData.api.ts";
-import MainImageSlider from "../mainImageSlider/MainImageSlider.tsx";
+import MainImageSlider from "../MainImageSlider/MainImageSlider.tsx";
 import { Link } from "react-router";
 
 const MainScreenBody = () => {
