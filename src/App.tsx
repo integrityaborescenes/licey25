@@ -9,6 +9,7 @@ import ArchiveSelectedCategory from "./pages/ArchiveSelectedCategory/ArchiveSele
 import Photos from "./pages/Photos/Photos.tsx";
 import History from "./pages/History/History.tsx";
 import Person from "./pages/Person/Person.tsx";
+import FireDivison from "./pages/FireDivision/FireDivison.tsx";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/archive/:id/:id" element={<Photos />} />
         <Route path="/history" element={<History />} />
         <Route path="/history/:id" element={<Person />} />
+        <Route path="/fireDivision" element={<FireDivison />} />
       </Routes>
     </BrowserRouter>
   );

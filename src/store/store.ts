@@ -6,6 +6,7 @@ import { archiveDataApi } from "./services/archiveData.api.ts";
 import { archiveCategoriesApi } from "./services/archiveCategories.api.ts";
 import { personApi } from "./services/personData.api.ts";
 import { historyApi } from "./services/history.api.ts";
+import { fireDivisionDataApi } from "./services/fireDivisionData.api.ts";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     [archiveCategoriesApi.reducerPath]: archiveCategoriesApi.reducer,
     [personApi.reducerPath]: personApi.reducer,
     [historyApi.reducerPath]: historyApi.reducer,
+    [fireDivisionDataApi.reducerPath]: fireDivisionDataApi.reducer,
     isModalOpen: isModalOpenSlice,
   },
   middleware: (getDefaultMiddleware) =>
@@ -24,7 +26,8 @@ export const store = configureStore({
       .concat(archiveDataApi.middleware)
       .concat(archiveCategoriesApi.middleware)
       .concat(personApi.middleware)
-      .concat(historyApi.middleware),
+      .concat(historyApi.middleware)
+      .concat(fireDivisionDataApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
