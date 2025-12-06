@@ -3,17 +3,51 @@ import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../store/store.ts";
 import { closeModal } from "../../store/slices/isModalOpenSlice.ts";
+import { useRef, useState } from "react";
 const API_BASE_URL = "http://licey25.test.itlabs.top";
 
 const ImageToFullScreen = () => {
   const image = useSelector((state: RootState) => state.isModalOpen.image);
   if (!image) return null;
   const dispatch = useDispatch<AppDispatch>();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const isVideo = /\.(mp4|webm|ogg)$/i.test(image);
+
+  const handlePlay = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
 
   return createPortal(
     <div className={styles.modal}>
       <div className={styles.image}>
-        <img src={`${API_BASE_URL}${image}`} draggable={false} />
+        {!isVideo && <img src={`${API_BASE_URL}${image}`} draggable={false} />}
+        {isVideo && (
+          <>
+            {!isPlaying && (
+              <div className={styles.startVideo} onClick={handlePlay}>
+                <img
+                  draggable={false}
+                  src="/ico/playButton.svg"
+                  width="195"
+                  height="220"
+                  alt="Play"
+                />
+              </div>
+            )}
+            <video
+              ref={videoRef}
+              src={`${API_BASE_URL}${image}`}
+              controls={isPlaying}
+              draggable={false}
+              className={styles.video}
+            />
+          </>
+        )}
         <div
           className={styles.closeWindow}
           onClick={() => {
