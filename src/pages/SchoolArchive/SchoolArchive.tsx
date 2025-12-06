@@ -6,7 +6,7 @@ const SchoolArchive = () => {
   return (
     <>
       <header>
-        <Header title="Школьный архив" />
+        <Header title="Школьный архив" backButton={true} />
       </header>
 
       <main>

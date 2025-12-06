@@ -3,12 +3,28 @@ import styles from "./Header.module.scss";
 type Props = {
   title: string;
   description?: string;
+  backButton?: boolean;
 };
 
-const Header = ({ title, description }: Props) => {
+const Header = ({ title, description, backButton }: Props) => {
   return (
     <header>
       <div className={styles.header}>
+        {backButton && (
+          <div
+            className={styles.backButton}
+            onClick={() => {
+              history.back();
+            }}
+          >
+            <img
+              src="/ico/arrowRight.svg"
+              draggable={false}
+              width="68"
+              height="60"
+            />
+          </div>
+        )}
         <div className={styles.headerTitle}>
           <p>{title}</p>
           {description && <span>{description}</span>}

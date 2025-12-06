@@ -10,7 +10,7 @@ const Person = () => {
   return (
     <>
       <header>
-        <Header title="" />
+        <Header title="" backButton={true} />
       </header>
 
       <main>

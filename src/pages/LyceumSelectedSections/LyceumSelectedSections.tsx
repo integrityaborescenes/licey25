@@ -10,7 +10,7 @@ const LyceumSelectedSections = () => {
   return (
     <>
       <header>
-        <Header title={info.title} />
+        <Header title={info.title} backButton={true} />
       </header>
 
       <main>

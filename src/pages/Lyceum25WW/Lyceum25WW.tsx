@@ -6,7 +6,7 @@ const Lyceum25WW = () => {
   return (
     <>
       <header>
-        <Header title="Лицей №25 в годы ВОВ" />
+        <Header title="Лицей №25 в годы ВОВ" backButton={true} />
       </header>
 
       <main>

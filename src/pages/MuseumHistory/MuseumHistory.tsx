@@ -11,7 +11,7 @@ const MuseumHistory = () => {
   return (
     <>
       <header>
-        <Header title={"Описание музея"} />
+        <Header title={"Описание музея"} backButton={true} />
       </header>
 
       <main>

@@ -6,7 +6,7 @@ const History = () => {
   return (
     <>
       <header>
-        <Header title="Историю пишем сами" />
+        <Header title="Историю пишем сами" backButton={true} />
       </header>
 
       <main>
