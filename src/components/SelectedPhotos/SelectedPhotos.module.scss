@@ -16,7 +16,6 @@
     background: rgba(255, 255, 255, 0.12);
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
 
     .prevFolder, .nextFolder {
@@ -41,6 +40,11 @@
         font-weight: 700;
         line-height: 120%;
 
+      }
+
+      &.hidden {
+        visibility: hidden;
+        pointer-events: none;
       }
     }
   }

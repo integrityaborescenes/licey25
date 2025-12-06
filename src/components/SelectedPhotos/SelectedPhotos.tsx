@@ -6,46 +6,60 @@ import type {
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store.ts";
 import { openModal } from "../../store/slices/isModalOpenSlice.ts";
-import { useState } from "react";
 import { useGetArchiveDataQuery } from "../../store/services/archiveData.api.ts";
 const API_BASE_URL = "http://licey25.test.itlabs.top";
 
 type Props = {
   data: IArchiveData;
   navigateBetweenFolders?: boolean;
+  setCurrentFolder?: (folder: IArchiveData) => void;
 };
 
-const SelectedPhotos = ({ data, navigateBetweenFolders }: Props) => {
+const SelectedPhotos = ({
+  data,
+  navigateBetweenFolders,
+  setCurrentFolder,
+}: Props) => {
   const dispatch = useDispatch<AppDispatch>();
   const { data: folder } = useGetArchiveDataQuery();
-  const [currentFolder, setCurrentFolder] = useState<IArchiveData>(data);
+  if (!folder) return null;
+  const currentIndex = folder.findIndex((f) => f.id === data.id);
+
   const prevFolder = () => {
     if (!folder) return;
-    const currentIndex = folder.findIndex((f) => f.id === currentFolder.id);
-    setCurrentFolder(folder[currentIndex - 1]);
+    const currentIndex = folder.findIndex((f) => f.id === data.id);
+    if (setCurrentFolder) setCurrentFolder(folder[currentIndex - 1]);
   };
 
   const nextFolder = () => {
     if (!folder) return;
-    const currentIndex = folder.findIndex((f) => f.id === currentFolder.id);
-    setCurrentFolder(folder[currentIndex + 1]);
+    const currentIndex = folder.findIndex((f) => f.id === data.id);
+    if (setCurrentFolder) setCurrentFolder(folder[currentIndex + 1]);
   };
 
   return (
     <div className={styles.block}>
       {navigateBetweenFolders && (
         <div className={styles.navigateBetweenFolders}>
-          <button className={styles.prevFolder} onClick={prevFolder}>
+          <button
+            className={`${styles.prevFolder} ${currentIndex > 0 ? "" : styles.hidden}`}
+            onClick={prevFolder}
+          >
             <p>Предыдущая папка</p>
           </button>
-          <button className={styles.nextFolder} onClick={nextFolder}>
+          <button
+            className={`${styles.nextFolder} ${
+              currentIndex < folder.length - 1 ? "" : styles.hidden
+            }`}
+            onClick={nextFolder}
+          >
             <p>Следующая папка</p>
           </button>
         </div>
       )}
       <div className={styles.selectedPhotos}>
         <div className={styles.photosContainer}>
-          {currentFolder?.archiveImages.map((item: IArchivesImages) => {
+          {data?.archiveImages.map((item: IArchivesImages) => {
             return (
               <div
                 className={styles.item}

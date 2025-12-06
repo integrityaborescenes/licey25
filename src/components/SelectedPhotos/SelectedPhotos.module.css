@@ -16,7 +16,6 @@
   background: rgba(255, 255, 255, 0.12);
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
 }
 .block .navigateBetweenFolders .prevFolder, .block .navigateBetweenFolders .nextFolder {
@@ -40,6 +39,10 @@
   font-style: normal;
   font-weight: 700;
   line-height: 120%;
+}
+.block .navigateBetweenFolders .prevFolder.hidden, .block .navigateBetweenFolders .nextFolder.hidden {
+  visibility: hidden;
+  pointer-events: none;
 }
 .block .selectedPhotos {
   height: 100%;

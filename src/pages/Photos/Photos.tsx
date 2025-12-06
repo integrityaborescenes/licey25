@@ -1,11 +1,12 @@
 import Header from "../../components/Header/Header.tsx";
 import Footer from "../../components/Footer/Footer.tsx";
 import { useLocation } from "react-router";
-import type { IArchiveData } from "../../types/archiveData.types.ts";
 import SelectedPhotos from "../../components/SelectedPhotos/SelectedPhotos.tsx";
 import ImageToFullScreen from "../../components/ImageToFullScreen/ImageToFullScreen.tsx";
 import type { RootState } from "../../store/store.ts";
 import { useSelector } from "react-redux";
+import type { IArchiveData } from "../../types/archiveData.types.ts";
+import { useState } from "react";
 
 const Photos = () => {
   const location = useLocation();
@@ -14,14 +15,20 @@ const Photos = () => {
     (state: RootState) => state.isModalOpen.value,
   );
 
+  const [currentFolder, setCurrentFolder] = useState<IArchiveData>(info);
+
   return (
     <>
       <header>
-        <Header title={info.title} backButton={true} />
+        <Header title={currentFolder.title} backButton={true} />
       </header>
 
       <main>
-        <SelectedPhotos data={info} navigateBetweenFolders={true} />
+        <SelectedPhotos
+          data={currentFolder}
+          navigateBetweenFolders={true}
+          setCurrentFolder={setCurrentFolder}
+        />
         {isModalOpen && <ImageToFullScreen />}
       </main>
 
