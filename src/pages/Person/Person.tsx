@@ -5,8 +5,8 @@ import type { IPersonData } from "../../types/person.types.ts";
 import DescriptionAndPhoto from "../../components/DescriptionAndPhoto/DescriptionAndPhoto.tsx";
 
 const Person = () => {
-  const location = useLocation();
-  const info = location.state as IPersonData;
+  // const location = useLocation();
+  // const info = location.state as IPersonData;
   return (
     <>
       <header>

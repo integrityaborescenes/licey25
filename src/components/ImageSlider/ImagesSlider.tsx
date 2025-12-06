@@ -16,36 +16,40 @@ const ImagesSlider = ({ images }: Props) => {
 
   return (
     <div className={styles.imageSlider}>
-      <button
-        className={styles.arrowLeft}
-        onClick={() =>
-          setCurrentSlide((prev) =>
-            prev !== 0 ? prev - 1 : imageList.length - 1,
-          )
-        }
-      >
-        <img
-          src="/public/ico/arrowRight.svg"
-          draggable={false}
-          width="40"
-          height="35"
-        />
-      </button>
-      <button
-        className={styles.arrowRight}
-        onClick={() => {
-          setCurrentSlide((prev) =>
-            prev !== imageList.length - 1 ? prev + 1 : 0,
-          );
-        }}
-      >
-        <img
-          src="/public/ico/arrowRight.svg"
-          draggable={false}
-          width="40"
-          height="35"
-        />
-      </button>
+      {imageList.length > 1 && (
+        <>
+          <button
+            className={styles.arrowLeft}
+            onClick={() =>
+              setCurrentSlide((prev) =>
+                prev !== 0 ? prev - 1 : imageList.length - 1,
+              )
+            }
+          >
+            <img
+              src="/public/ico/arrowRight.svg"
+              draggable={false}
+              width="40"
+              height="35"
+            />
+          </button>
+          <button
+            className={styles.arrowRight}
+            onClick={() => {
+              setCurrentSlide((prev) =>
+                prev !== imageList.length - 1 ? prev + 1 : 0,
+              );
+            }}
+          >
+            <img
+              src="/public/ico/arrowRight.svg"
+              draggable={false}
+              width="40"
+              height="35"
+            />
+          </button>
+        </>
+      )}
       <div className={styles.imageContainer}>
         <div
           className={styles.slidesWrapper}
@@ -62,6 +66,13 @@ const ImagesSlider = ({ images }: Props) => {
               }}
             />
           ))}
+          <img
+            className={styles.zoomPhoto}
+            draggable={false}
+            src="/ico/zoomIco.svg"
+            width="60"
+            height="60"
+          />
         </div>
       </div>
     </div>

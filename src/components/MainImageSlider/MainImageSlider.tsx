@@ -78,6 +78,13 @@ const MainImageSlider = () => {
                   }}
                 />
               ))}
+              <img
+                className={styles.zoomPhoto}
+                draggable={false}
+                src="/ico/zoomIco.svg"
+                width="60"
+                height="60"
+              />
             </div>
           </div>
           {images.length > 1 && (
