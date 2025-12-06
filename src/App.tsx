@@ -7,6 +7,7 @@ import LyceumSelectedSections from "./pages/LyceumSelectedSections/LyceumSelecte
 import SchoolArchive from "./pages/SchoolArchive/SchoolArchive.tsx";
 import ArchiveSelectedCategory from "./pages/ArchiveSelectedCategory/ArchiveSelectedCategory.tsx";
 import Photos from "./pages/Photos/Photos.tsx";
+import History from "./pages/History/History.tsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/archive" element={<SchoolArchive />} />
         <Route path="/archive/:id" element={<ArchiveSelectedCategory />} />
         <Route path="/archive/:id/:id" element={<Photos />} />
+        <Route path="/history" element={<History />} />
       </Routes>
     </BrowserRouter>
   );

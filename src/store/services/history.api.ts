@@ -7,6 +7,7 @@ export const historyApi = createApi({
   endpoints: (build) => ({
     getHistory: build.query<IHistoryData, void>({
       query: () => "history",
+      transformResponse: (response: IHistoryData[]) => response[0],
       keepUnusedDataFor: 600,
     }),
   }),

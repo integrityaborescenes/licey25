@@ -12,7 +12,12 @@ const mainScreenSections = () => {
         <Section title={"Лицей №25 в годы ВОВ"} />
       </Link>
       <Section title={"357-я стрелковая дивизия"} />
-      <Section title={"Историю пишем сами"} />
+      <Link
+        to="/history"
+        style={{ display: "block", width: "100%", textDecoration: "none" }}
+      >
+        <Section title={"Историю пишем сами"} />
+      </Link>
       <Link
         to="/archive"
         style={{ display: "block", width: "100%", textDecoration: "none" }}
