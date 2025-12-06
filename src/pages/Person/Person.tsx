@@ -1,23 +1,20 @@
 import Header from "../../components/Header/Header.tsx";
 import Footer from "../../components/Footer/Footer.tsx";
 import { useLocation } from "react-router";
+import type { IPersonData } from "../../types/person.types.ts";
 import DescriptionAndPhoto from "../../components/DescriptionAndPhoto/DescriptionAndPhoto.tsx";
-import type { ILyceyData } from "../../types/lyceyData.types.ts";
 
-const LyceumSelectedSections = () => {
+const Person = () => {
   const location = useLocation();
-  const info = location.state as ILyceyData;
+  const info = location.state as IPersonData;
   return (
     <>
       <header>
-        <Header title={info.title} />
+        <Header title="" />
       </header>
 
       <main>
-        <DescriptionAndPhoto
-          description={info.description}
-          images={[{ file: info.images[0].imageLicey }]}
-        />
+        <DescriptionAndPhoto person={true} />
       </main>
 
       <footer>
@@ -27,4 +24,4 @@ const LyceumSelectedSections = () => {
   );
 };
 
-export default LyceumSelectedSections;
+export default Person;

@@ -8,6 +8,7 @@ import SchoolArchive from "./pages/SchoolArchive/SchoolArchive.tsx";
 import ArchiveSelectedCategory from "./pages/ArchiveSelectedCategory/ArchiveSelectedCategory.tsx";
 import Photos from "./pages/Photos/Photos.tsx";
 import History from "./pages/History/History.tsx";
+import Person from "./pages/Person/Person.tsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/archive/:id" element={<ArchiveSelectedCategory />} />
         <Route path="/archive/:id/:id" element={<Photos />} />
         <Route path="/history" element={<History />} />
+        <Route path="/history/:id" element={<Person />} />
       </Routes>
     </BrowserRouter>
   );
