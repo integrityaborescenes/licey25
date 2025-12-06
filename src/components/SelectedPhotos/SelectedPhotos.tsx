@@ -6,34 +6,64 @@ import type {
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store.ts";
 import { openModal } from "../../store/slices/isModalOpenSlice.ts";
+import { useState } from "react";
+import { useGetArchiveDataQuery } from "../../store/services/archiveData.api.ts";
 const API_BASE_URL = "http://licey25.test.itlabs.top";
 
 type Props = {
   data: IArchiveData;
+  navigateBetweenFolders?: boolean;
 };
-const SelectedPhotos = ({ data }: Props) => {
+
+const SelectedPhotos = ({ data, navigateBetweenFolders }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
+  const { data: folder } = useGetArchiveDataQuery();
+  const [currentFolder, setCurrentFolder] = useState<IArchiveData>(data);
+  const prevFolder = () => {
+    if (!folder) return;
+    const currentIndex = folder.findIndex((f) => f.id === currentFolder.id);
+    setCurrentFolder(folder[currentIndex - 1]);
+  };
+
+  const nextFolder = () => {
+    if (!folder) return;
+    const currentIndex = folder.findIndex((f) => f.id === currentFolder.id);
+    setCurrentFolder(folder[currentIndex + 1]);
+  };
+
   return (
-    <div className={styles.selectedPhotos}>
-      <div className={styles.photosContainer}>
-        {data?.archiveImages.map((item: IArchivesImages) => {
-          return (
-            <div
-              className={styles.item}
-              key={item.id}
-              onClick={() => {
-                dispatch(openModal(item.file));
-              }}
-            >
-              <div className={styles.image}>
-                <img src={`${API_BASE_URL}${item.file}`} />
+    <div className={styles.block}>
+      {navigateBetweenFolders && (
+        <div className={styles.navigateBetweenFolders}>
+          <button className={styles.prevFolder} onClick={prevFolder}>
+            <p>Предыдущая папка</p>
+          </button>
+          <button className={styles.nextFolder} onClick={nextFolder}>
+            <p>Следующая папка</p>
+          </button>
+        </div>
+      )}
+      <div className={styles.selectedPhotos}>
+        <div className={styles.photosContainer}>
+          {currentFolder?.archiveImages.map((item: IArchivesImages) => {
+            return (
+              <div
+                className={styles.item}
+                key={item.id}
+                onClick={() => {
+                  dispatch(openModal(item.file));
+                }}
+              >
+                <div className={styles.image}>
+                  <img src={`${API_BASE_URL}${item.file}`} />
+                </div>
+                <div className={styles.title}>
+                  <p>{item.title}</p>
+                </div>
               </div>
-              <div className={styles.title}>
-                <p>{item.title}</p>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

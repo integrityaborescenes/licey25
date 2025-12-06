@@ -1,13 +1,54 @@
-.selectedPhotos {
+.block {
   margin: 0 auto;
   max-width: 3680px;
   width: 100%;
   height: 1665px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.block .navigateBetweenFolders {
+  max-width: 3680px;
+  width: 100%;
+  height: 205px;
+  padding: 40px;
+  border-radius: 82px;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.block .navigateBetweenFolders .prevFolder, .block .navigateBetweenFolders .nextFolder {
+  max-width: 658px;
+  width: 100%;
+  height: 125px;
+  border-radius: 44px;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+}
+.block .navigateBetweenFolders .prevFolder p, .block .navigateBetweenFolders .nextFolder p {
+  color: #12B5FF;
+  leading-trim: both;
+  text-edge: cap;
+  font-family: var(--font);
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+.block .selectedPhotos {
+  height: 100%;
   padding: 56px 20px 56px 56px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 64px;
+  overflow: hidden;
 }
-.selectedPhotos .photosContainer {
+.block .selectedPhotos .photosContainer {
   height: 100%;
   width: 100%;
   display: flex;
@@ -18,28 +59,27 @@
   overflow-x: hidden;
   padding-right: 20px;
 }
-.selectedPhotos .photosContainer::-webkit-scrollbar {
+.block .selectedPhotos .photosContainer::-webkit-scrollbar {
   width: 16px;
 }
-.selectedPhotos .photosContainer::-webkit-scrollbar-track {
+.block .selectedPhotos .photosContainer::-webkit-scrollbar-track {
   background: transparent;
 }
-.selectedPhotos .photosContainer::-webkit-scrollbar-thumb {
+.block .selectedPhotos .photosContainer::-webkit-scrollbar-thumb {
   background: var(--white);
   border-radius: 58px;
   min-height: 120px;
 }
-.selectedPhotos .photosContainer .item {
-  flex: 0 0 862px;
+.block .selectedPhotos .photosContainer .item {
   display: flex;
   flex-direction: column;
   max-width: 862px;
   width: 100%;
-  height: 1553px;
+  height: 100%;
   border-radius: 40px;
   background: var(--white);
 }
-.selectedPhotos .photosContainer .item .title {
+.block .selectedPhotos .photosContainer .item .title {
   max-width: 862px;
   width: 100%;
   height: 208px;
@@ -50,7 +90,7 @@
   align-self: stretch;
   border-top: 6px solid #DCDCDC;
 }
-.selectedPhotos .photosContainer .item .title p {
+.block .selectedPhotos .photosContainer .item .title p {
   color: #12B5FF;
   text-align: center;
   font-family: var(--font);
@@ -59,14 +99,15 @@
   font-weight: 600;
   line-height: normal;
 }
-.selectedPhotos .photosContainer .item .image {
+.block .selectedPhotos .photosContainer .item .image {
   max-width: 862px;
   width: 100%;
-  height: 1325px;
+  max-height: 1325px;
+  height: 100%;
   border-radius: 40px;
   overflow: hidden;
 }
-.selectedPhotos .photosContainer .item .image img {
+.block .selectedPhotos .photosContainer .item .image img {
   width: 100%;
   height: 100%;
   object-fit: cover;

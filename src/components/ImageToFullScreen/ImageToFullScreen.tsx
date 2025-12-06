@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../store/store.ts";
 import { closeModal } from "../../store/slices/isModalOpenSlice.ts";
-const API_BASE_URL = "http://licey25.test.itlabs.top/";
+const API_BASE_URL = "http://licey25.test.itlabs.top";
 
 const ImageToFullScreen = () => {
   const image = useSelector((state: RootState) => state.isModalOpen.image);

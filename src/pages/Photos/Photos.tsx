@@ -21,7 +21,7 @@ const Photos = () => {
       </header>
 
       <main>
-        <SelectedPhotos data={info} />
+        <SelectedPhotos data={info} navigateBetweenFolders={true} />
         {isModalOpen && <ImageToFullScreen />}
       </main>
 
