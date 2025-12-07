@@ -7,6 +7,9 @@ import { archiveCategoriesApi } from "./services/archiveCategories.api.ts";
 import { personApi } from "./services/personData.api.ts";
 import { historyApi } from "./services/history.api.ts";
 import { fireDivisionDataApi } from "./services/fireDivisionData.api.ts";
+import isWaitModeSlice from "./slices/isWaitModeSlice.ts";
+import { waitModeApi } from "./services/waitMode.api.ts";
+import { waitModeApi2 } from "./services/waitMode2.api.ts";
 
 export const store = configureStore({
   reducer: {
@@ -17,7 +20,10 @@ export const store = configureStore({
     [personApi.reducerPath]: personApi.reducer,
     [historyApi.reducerPath]: historyApi.reducer,
     [fireDivisionDataApi.reducerPath]: fireDivisionDataApi.reducer,
+    [waitModeApi.reducerPath]: waitModeApi.reducer,
+    [waitModeApi2.reducerPath]: waitModeApi2.reducer,
     isModalOpen: isModalOpenSlice,
+    isWaitMode: isWaitModeSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -27,7 +33,9 @@ export const store = configureStore({
       .concat(archiveCategoriesApi.middleware)
       .concat(personApi.middleware)
       .concat(historyApi.middleware)
-      .concat(fireDivisionDataApi.middleware),
+      .concat(fireDivisionDataApi.middleware)
+      .concat(waitModeApi.middleware)
+      .concat(waitModeApi2.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

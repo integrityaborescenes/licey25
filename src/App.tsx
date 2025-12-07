@@ -10,8 +10,15 @@ import Photos from "./pages/Photos/Photos.tsx";
 import History from "./pages/History/History.tsx";
 import Person from "./pages/Person/Person.tsx";
 import FireDivison from "./pages/FireDivision/FireDivison.tsx";
+import DuplicateScreen from "./pages/DuplicateScreen/DuplicateScreen.tsx";
+import { useWaitModeObserver } from "./hooks/useWaitModeObserver.tsx";
+import WaitMode from "./components/WaitMode/WaitMode.tsx";
+import { useGetWaitModeDataQuery } from "./store/services/waitMode.api.ts";
 
 function App() {
+  const { data } = useGetWaitModeDataQuery();
+
+  useWaitModeObserver(data ?? []);
   return (
     <BrowserRouter>
       <Routes>
@@ -25,7 +32,9 @@ function App() {
         <Route path="/history" element={<History />} />
         <Route path="/history/:id" element={<Person />} />
         <Route path="/fireDivision" element={<FireDivison />} />
+        <Route path="/duplicate" element={<DuplicateScreen />} />
       </Routes>
+      <WaitMode />
     </BrowserRouter>
   );
 }
