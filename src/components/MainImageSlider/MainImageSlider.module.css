@@ -80,7 +80,7 @@
   height: 100%;
   position: relative;
 }
-.imageSlider .imageContainer .slidesWrapper .zoomPhoto {
+.imageSlider .imageContainer .zoomPhoto {
   position: absolute;
   right: 0;
   bottom: 0;

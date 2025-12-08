@@ -1,8 +1,9 @@
 import styles from "./ImagesSlider.module.scss";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { openModal } from "../../store/slices/isModalOpenSlice.ts";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store.ts";
+import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 const API_BASE_URL = "http://licey25.test.itlabs.top/";
 
 type Props = {
@@ -13,10 +14,11 @@ const ImagesSlider = ({ images }: Props) => {
   const imageList = images ?? [];
   const [currentSlide, setCurrentSlide] = useState(0);
   const dispatch = useDispatch<AppDispatch>();
+  const { isDuplicate } = useContext(ScreenModeContext);
 
   return (
     <div className={styles.imageSlider}>
-      {imageList.length > 1 && (
+      {imageList.length > 1 && !isDuplicate && (
         <>
           <button
             className={styles.arrowLeft}
@@ -68,7 +70,7 @@ const ImagesSlider = ({ images }: Props) => {
           ))}
         </div>
         <img
-          className={styles.zoomPhoto}
+          className={`${styles.zoomPhoto} ${!isDuplicate ? "" : styles.disabled}`}
           draggable={false}
           src="/ico/zoomIco.svg"
           width="60"

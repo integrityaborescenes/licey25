@@ -15,20 +15,18 @@ const HistoryMainBlock = () => {
         <div className={styles.photosContainer}>
           {person?.map((p) => {
             return (
-              <>
-                <div className={styles.item} key={p.id}>
-                  <Link to={`/history/${p.id}`} state={p}>
-                    <div className={styles.image}>
-                      <img
-                        src={`${API_BASE_URL}${p.historyPersonImages[0].file}`}
-                      />
-                    </div>
-                  </Link>
-                  <div className={styles.title}>
-                    <p>{p.name}</p>
+              <div className={styles.item} key={p.id}>
+                <Link to={`/history/${p.id}`} state={p}>
+                  <div className={styles.image}>
+                    <img
+                      src={`${API_BASE_URL}${p.historyPersonImages[0].file}`}
+                    />
                   </div>
+                </Link>
+                <div className={styles.title}>
+                  <p>{p.name}</p>
                 </div>
-              </>
+              </div>
             );
           })}
         </div>
