@@ -3,14 +3,24 @@ import Footer from "../../components/Footer/Footer.tsx";
 import { useLocation } from "react-router";
 import type { IPersonData } from "../../types/person.types.ts";
 import DescriptionAndPhoto from "../../components/DescriptionAndPhoto/DescriptionAndPhoto.tsx";
+import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
+import { useContext } from "react";
+import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 
-const Person = () => {
+type Props = {
+  info?: IPersonData;
+};
+
+const Person = ({ info: propsInfo }: Props) => {
   const location = useLocation();
-  const info = location.state as IPersonData;
+  const info = propsInfo ?? (location.state as IPersonData);
+  useSyncDuplicate("person", info);
+  const { isDuplicate } = useContext(ScreenModeContext);
+
   return (
     <>
       <header>
-        <Header title={info.name} backButton={true} />
+        <Header title={info.name} backButton={!isDuplicate} />
       </header>
 
       <main>

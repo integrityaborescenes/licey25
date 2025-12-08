@@ -3,14 +3,24 @@ import Footer from "../../components/Footer/Footer.tsx";
 import { useLocation } from "react-router";
 import DescriptionAndPhoto from "../../components/DescriptionAndPhoto/DescriptionAndPhoto.tsx";
 import type { ILyceyData } from "../../types/lyceyData.types.ts";
+import { useContext } from "react";
+import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
+import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 
-const LyceumSelectedSections = () => {
+type Props = {
+  info?: ILyceyData;
+};
+
+const LyceumSelectedSections = ({ info: propsInfo }: Props) => {
   const location = useLocation();
-  const info = location.state as ILyceyData;
+  const info = propsInfo ?? (location.state as ILyceyData);
+  const { isDuplicate } = useContext(ScreenModeContext);
+  useSyncDuplicate("lyceumSelectedSection", info);
+
   return (
     <>
       <header>
-        <Header title={info.title} backButton={true} />
+        <Header title={info.title} backButton={!isDuplicate} />
       </header>
 
       <main>

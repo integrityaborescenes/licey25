@@ -6,27 +6,35 @@ import ImageToFullScreen from "../../components/ImageToFullScreen/ImageToFullScr
 import type { RootState } from "../../store/store.ts";
 import { useSelector } from "react-redux";
 import type { IArchiveData } from "../../types/archiveData.types.ts";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
+import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 
-const Photos = () => {
+type Props = {
+  info?: IArchiveData;
+};
+
+const Photos = ({ info: propsInfo }: Props) => {
   const location = useLocation();
-  const info = location.state as IArchiveData;
+  const info = propsInfo ?? (location.state as IArchiveData);
   const isModalOpen = useSelector(
     (state: RootState) => state.isModalOpen.value,
   );
+  const { isDuplicate } = useContext(ScreenModeContext);
+  useSyncDuplicate("archivePhotos", info);
 
   const [currentFolder, setCurrentFolder] = useState<IArchiveData>(info);
 
   return (
     <>
       <header>
-        <Header title={currentFolder.title} backButton={true} />
+        <Header title={currentFolder.title} backButton={!isDuplicate} />
       </header>
 
       <main>
         <SelectedPhotos
           data={currentFolder}
-          navigateBetweenFolders={true}
+          navigateBetweenFolders={!isDuplicate}
           setCurrentFolder={setCurrentFolder}
         />
         {isModalOpen && <ImageToFullScreen />}

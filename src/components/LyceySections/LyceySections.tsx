@@ -2,18 +2,32 @@ import styles from "./LyceySections.module.scss";
 import { useGetLiceyDataQuery } from "../../store/services/lyceyData.api.ts";
 import Section from "../Section/Section.tsx";
 import type { ILyceyData } from "../../types/lyceyData.types.ts";
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
+import { socket } from "../../ws.ts";
 const LyceySections = () => {
   const { data } = useGetLiceyDataQuery();
+
+  const navigate = useNavigate();
+  const handleClick = (info: ILyceyData) => {
+    socket.send(
+      JSON.stringify({
+        type: "/lyceumSelectedSection",
+        data: info,
+      }),
+    );
+    navigate(`/lyceumWW/${info.id}`, { state: info });
+  };
 
   return (
     <div className={styles.lyceySections}>
       <div className={styles.sectionContainer}>
         {data?.map((info: ILyceyData) => (
-          <div className={styles.wrap} key={info?.id}>
-            <Link to={`/lyceumWW/${info?.id}`} state={info}>
-              <Section title={info?.title} block={"lycey"}></Section>
-            </Link>
+          <div
+            className={styles.wrap}
+            key={info.id}
+            onClick={() => handleClick(info)}
+          >
+            <Section title={info.title} block="lycey" />
           </div>
         ))}
       </div>

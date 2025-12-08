@@ -5,15 +5,14 @@ import Footer from "../../components/Footer/Footer.tsx";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store.ts";
 import ImageToFullScreen from "../../components/ImageToFullScreen/ImageToFullScreen.tsx";
+import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 
-type Props = {
-  isDublicate?: boolean;
-};
-
-const Main = ({ isDublicate }: Props) => {
+const Main = () => {
   const isModalOpen = useSelector(
     (state: RootState) => state.isModalOpen.value,
   );
+  useSyncDuplicate("main");
+
   return (
     <>
       <header>
@@ -24,7 +23,7 @@ const Main = ({ isDublicate }: Props) => {
       </header>
 
       <main>
-        <MainScreenBody isDublicate={isDublicate} />
+        <MainScreenBody />
         {isModalOpen && <ImageToFullScreen />}
         <MainScreenSections />
       </main>

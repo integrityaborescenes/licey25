@@ -1,14 +1,11 @@
 import styles from "./MainImageSlider.module.scss";
 import { useGetMainScreenDataQuery } from "../../store/services/mainScreenData.api.ts";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store.ts";
 import { openModal } from "../../store/slices/isModalOpenSlice.ts";
+import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 const API_BASE_URL = "http://licey25.test.itlabs.top/";
-
-type Props = {
-  isDublicate?: boolean;
-};
 
 const MainImageSlider = () => {
   const { data } = useGetMainScreenDataQuery();
@@ -16,6 +13,7 @@ const MainImageSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const dispatch = useDispatch<AppDispatch>();
+  const { isDuplicate } = useContext(ScreenModeContext);
 
   const images =
     typeSelector === "Museum"
@@ -85,7 +83,7 @@ const MainImageSlider = () => {
               ))}
             </div>
             <img
-              className={styles.zoomPhoto}
+              className={`${styles.zoomPhoto} ${!isDuplicate ? "" : styles.disabled}`}
               draggable={false}
               src="/ico/zoomIco.svg"
               width="60"

@@ -1,34 +1,47 @@
 import styles from "./MainScreenSections.module.scss";
 import Section from "../Section/Section.tsx";
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
+import { socket } from "../../ws.ts";
 
 const mainScreenSections = () => {
+  const navigate = useNavigate();
+
+  const handleClick = (path: string) => {
+    socket.send(
+      JSON.stringify({
+        type: `${path}`,
+        path,
+      }),
+    );
+    navigate(path);
+  };
+
   return (
     <div className={styles.mainSections}>
-      <Link
-        to="/lyceumWW"
+      <div
+        onClick={() => handleClick("/lyceumWW")}
         style={{ display: "block", width: "100%", textDecoration: "none" }}
       >
         <Section title={"Лицей №25 в годы ВОВ"} />
-      </Link>
-      <Link
-        to="/fireDivision"
+      </div>
+      <div
+        onClick={() => handleClick("/fireDivision")}
         style={{ display: "block", width: "100%", textDecoration: "none" }}
       >
         <Section title={"357-я стрелковая дивизия"} />
-      </Link>
-      <Link
-        to="/history"
+      </div>
+      <div
+        onClick={() => handleClick("/history")}
         style={{ display: "block", width: "100%", textDecoration: "none" }}
       >
         <Section title={"Историю пишем сами"} />
-      </Link>
-      <Link
-        to="/archive"
+      </div>
+      <div
+        onClick={() => handleClick("/archive")}
         style={{ display: "block", width: "100%", textDecoration: "none" }}
       >
         <Section title={"Школьный архив"} />
-      </Link>
+      </div>
     </div>
   );
 };

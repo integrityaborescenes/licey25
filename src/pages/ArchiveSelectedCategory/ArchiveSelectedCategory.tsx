@@ -3,15 +3,24 @@ import Footer from "../../components/Footer/Footer.tsx";
 import { useLocation } from "react-router";
 import ArchivePhotosSection from "../../components/ArchivePhotosSection/ArchivePhotosSection.tsx";
 import type { IArchiveCategories } from "../../types/archiveCategories.types.ts";
+import { useContext } from "react";
+import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
+import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 
-const ArchiveSelectedCategory = () => {
+type Props = {
+  info?: IArchiveCategories;
+};
+
+const ArchiveSelectedCategory = ({ info: propsInfo }: Props) => {
   const location = useLocation();
-  const info = location.state as IArchiveCategories;
+  const info = propsInfo ?? (location.state as IArchiveCategories);
+  const { isDuplicate } = useContext(ScreenModeContext);
+  useSyncDuplicate("archiveSelectedCategory", info);
 
   return (
     <>
       <header>
-        <Header title={info.title} backButton={true} />
+        <Header title={info.title} backButton={!isDuplicate} />
       </header>
 
       <main>

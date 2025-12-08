@@ -93,6 +93,10 @@
       bottom: 0;
       margin: 60px;
       pointer-events: none;
+      &.disabled {
+        opacity: 0;
+        pointer-events: none;
+      }
     }
 
     .slide {

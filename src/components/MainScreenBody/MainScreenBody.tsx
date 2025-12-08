@@ -1,22 +1,12 @@
 import styles from "./MainScreenBody.module.scss";
 import { useGetMainScreenDataQuery } from "../../store/services/mainScreenData.api.ts";
 import MainImageSlider from "../MainImageSlider/MainImageSlider.tsx";
-import { socket } from "../../ws.ts";
 import { useNavigate } from "react-router";
 
-type Props = {
-  isDublicate?: boolean;
-};
-
-const MainScreenBody = ({ isDublicate }: Props) => {
+const MainScreenBody = () => {
   const { data } = useGetMainScreenDataQuery();
   const navigate = useNavigate();
   const handleClick = () => {
-    socket.send(
-      JSON.stringify({
-        type: "click",
-      }),
-    );
     navigate("/museumHistory");
   };
 
@@ -28,7 +18,7 @@ const MainScreenBody = ({ isDublicate }: Props) => {
           <p>Читать описание музея</p>
         </button>
       </div>
-      <MainImageSlider isDublicate={isDublicate} />
+      <MainImageSlider />
     </div>
   );
 };

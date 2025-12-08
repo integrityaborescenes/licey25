@@ -87,6 +87,10 @@
   margin: 60px;
   pointer-events: none;
 }
+.imageSlider .imageContainer .zoomPhoto.disabled {
+  opacity: 0;
+  pointer-events: none;
+}
 .imageSlider .imageContainer .slide {
   min-width: 100%;
   height: 100%;

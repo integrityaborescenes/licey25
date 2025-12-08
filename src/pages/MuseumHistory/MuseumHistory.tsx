@@ -4,12 +4,14 @@ import DescriptionAndPhoto from "../../components/DescriptionAndPhoto/Descriptio
 import { useGetMainScreenDataQuery } from "../../store/services/mainScreenData.api.ts";
 import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
+import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 
 const MuseumHistory = () => {
   const { data } = useGetMainScreenDataQuery();
   const description = data?.description;
   const images = data?.mainScreenLiceyImages ?? [];
   const { isDuplicate } = useContext(ScreenModeContext);
+  useSyncDuplicate("museumHistory");
 
   return (
     <>
