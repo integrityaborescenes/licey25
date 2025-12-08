@@ -6,6 +6,8 @@ import type { ILyceyData } from "../../types/lyceyData.types.ts";
 import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store.ts";
 
 type Props = {
   info?: ILyceyData;
@@ -15,7 +17,15 @@ const LyceumSelectedSections = ({ info: propsInfo }: Props) => {
   const location = useLocation();
   const info = propsInfo ?? (location.state as ILyceyData);
   const { isDuplicate } = useContext(ScreenModeContext);
-  useSyncDuplicate("lyceumSelectedSection", info);
+  const isModalOpen = useSelector(
+    (state: RootState) => state.isModalOpen.value,
+  );
+  const modalImage = useSelector((state: RootState) => state.isModalOpen.image);
+
+  useSyncDuplicate("lyceumSelectedSection", info, {
+    open: isModalOpen,
+    image: modalImage,
+  });
 
   return (
     <>

@@ -1,6 +1,6 @@
 import styles from "./MainImageSlider.module.scss";
 import { useGetMainScreenDataQuery } from "../../store/services/mainScreenData.api.ts";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store.ts";
 import { openModal } from "../../store/slices/isModalOpenSlice.ts";
@@ -25,22 +25,30 @@ const MainImageSlider = ({ sliderState }: Props) => {
       ? (data?.mainScreenMuseumImages ?? [])
       : (data?.mainScreenLiceyImages ?? []);
 
+  const sliderInfo = useMemo(() => ({ slider: currentSlide }), [currentSlide]);
   useSyncDuplicate(
     "mainSlider",
     { typeSelector, imagesLength: images.length },
-    { slider: currentSlide },
+    sliderInfo,
   );
 
   useEffect(() => {
     if (sliderState) {
-      setTypeSelector(sliderState.typeSelector);
-      setCurrentSlide(sliderState.slider);
+      if (sliderState.typeSelector !== typeSelector) {
+        setTypeSelector(sliderState.typeSelector);
+      }
+      if (sliderState.slider !== currentSlide) {
+        setCurrentSlide(sliderState.slider);
+      }
     }
-  }, [sliderState]);
+  }, [sliderState, typeSelector, currentSlide]);
 
-  useEffect(() => {
-    setCurrentSlide(0);
-  }, [typeSelector, images.length]);
+  const handleTypeChange = (type: "Museum" | "Licey") => {
+    if (type !== typeSelector) {
+      setTypeSelector(type);
+      setCurrentSlide(0);
+    }
+  };
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.touches[0].clientX);
@@ -71,13 +79,13 @@ const MainImageSlider = ({ sliderState }: Props) => {
         <div className={styles.imageSlider}>
           <div className={styles.typeSelector}>
             <button
-              onClick={() => setTypeSelector("Museum")}
+              onClick={() => handleTypeChange("Museum")}
               className={typeSelector === "Museum" ? styles.active : ""}
             >
               <p>Музей</p>
             </button>
             <button
-              onClick={() => setTypeSelector("Licey")}
+              onClick={() => handleTypeChange("Licey")}
               className={typeSelector === "Licey" ? styles.active : ""}
             >
               <p>Лицей</p>
