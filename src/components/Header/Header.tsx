@@ -1,4 +1,7 @@
 import styles from "./Header.module.scss";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../store/store.ts";
+import { setSlide } from "../../store/slices/currentSliderSlice.ts";
 
 type Props = {
   title: string;
@@ -7,6 +10,7 @@ type Props = {
 };
 
 const Header = ({ title, description, backButton }: Props) => {
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <header>
       <div className={styles.header}>
@@ -15,6 +19,7 @@ const Header = ({ title, description, backButton }: Props) => {
             className={styles.backButton}
             onClick={() => {
               history.back();
+              dispatch(setSlide(0));
             }}
           >
             <img

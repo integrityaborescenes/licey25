@@ -18,6 +18,7 @@ const ImagesSlider = ({ images }: Props) => {
     (state: RootState) => state.currentSlider.currentSlide,
   );
   const dispatch = useDispatch<AppDispatch>();
+
   const { isDuplicate } = useContext(ScreenModeContext);
 
   const handlePrev = () => {

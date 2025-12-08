@@ -16,6 +16,13 @@ import { useDispatch } from "react-redux";
 import { setSlide } from "../../store/slices/currentSliderSlice.ts";
 
 export default function DuplicateScreen() {
+  const screensWithSlider = [
+    "fireDivison",
+    "museumHistory",
+    "lyceumSelectedSection",
+    "person",
+  ];
+
   const [screen, setScreen] = useState({
     name: "main",
     info: null,
@@ -37,6 +44,10 @@ export default function DuplicateScreen() {
 
       if (event.type === "currentScreen") {
         setScreen(event.screen);
+
+        if (screensWithSlider.includes(event.screen.name)) {
+          dispatch(setSlide(0));
+        }
 
         if (event.screen.modal?.open) {
           dispatch(openModal(event.screen.modal.image));
