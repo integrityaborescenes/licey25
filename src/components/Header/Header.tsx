@@ -2,6 +2,7 @@ import styles from "./Header.module.scss";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store.ts";
 import { setSlide } from "../../store/slices/currentSliderSlice.ts";
+import { socket } from "../../ws.ts";
 
 type Props = {
   title: string;
@@ -20,6 +21,13 @@ const Header = ({ title, description, backButton }: Props) => {
             onClick={() => {
               history.back();
               dispatch(setSlide(0));
+              socket.send(
+                JSON.stringify({
+                  type: "sliderChange",
+                  slide: 0,
+                  sliderId: "duplicateScreenSlider",
+                }),
+              );
             }}
           >
             <img
