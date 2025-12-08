@@ -8,5 +8,5 @@ export interface IPersonData {
   name: string;
   bio: string;
   grade: string;
-  archiveImages: IPersonImage[];
+  historyPersonImages: IPersonImage[];
 }

@@ -6,11 +6,14 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store.ts";
 import ImageToFullScreen from "../../components/ImageToFullScreen/ImageToFullScreen.tsx";
 
-function Main() {
+type Props = {
+  isDublicate?: boolean;
+};
+
+const Main = ({ isDublicate }: Props) => {
   const isModalOpen = useSelector(
     (state: RootState) => state.isModalOpen.value,
   );
-
   return (
     <>
       <header>
@@ -21,7 +24,7 @@ function Main() {
       </header>
 
       <main>
-        <MainScreenBody />
+        <MainScreenBody isDublicate={isDublicate} />
         {isModalOpen && <ImageToFullScreen />}
         <MainScreenSections />
       </main>
@@ -31,6 +34,6 @@ function Main() {
       </footer>
     </>
   );
-}
+};
 
 export default Main;

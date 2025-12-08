@@ -3,7 +3,11 @@ import Footer from "../../components/Footer/Footer.tsx";
 import DescriptionAndPhoto from "../../components/DescriptionAndPhoto/DescriptionAndPhoto.tsx";
 import { useGetMainScreenDataQuery } from "../../store/services/mainScreenData.api.ts";
 
-const MuseumHistory = () => {
+type Props = {
+  isDublicate?: boolean;
+};
+
+const MuseumHistory = ({ isDublicate }: Props) => {
   const { data } = useGetMainScreenDataQuery();
   const description = data?.description;
   const images = data?.mainScreenLiceyImages ?? [];
@@ -11,7 +15,7 @@ const MuseumHistory = () => {
   return (
     <>
       <header>
-        <Header title={"Описание музея"} backButton={true} />
+        <Header title={"Описание музея"} backButton={!isDublicate} />
       </header>
 
       <main>

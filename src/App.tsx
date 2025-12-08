@@ -17,7 +17,7 @@ import { useGetWaitModeDataQuery } from "./store/services/waitMode.api.ts";
 
 function App() {
   const { data } = useGetWaitModeDataQuery();
-
+  console.log(data);
   useWaitModeObserver(data ?? []);
   return (
     <BrowserRouter>

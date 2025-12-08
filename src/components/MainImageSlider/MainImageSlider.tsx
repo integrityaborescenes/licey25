@@ -5,6 +5,11 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store.ts";
 import { openModal } from "../../store/slices/isModalOpenSlice.ts";
 const API_BASE_URL = "http://licey25.test.itlabs.top/";
+
+type Props = {
+  isDublicate?: boolean;
+};
+
 const MainImageSlider = () => {
   const { data } = useGetMainScreenDataQuery();
   const [typeSelector, setTypeSelector] = useState("Museum");

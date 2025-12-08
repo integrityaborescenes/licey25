@@ -1,34 +1,29 @@
-import Header from "../../components/Header/Header.tsx";
-import MainScreenBody from "../../components/MainScreenBody/MainScreenBody.tsx";
-import MainScreenSections from "../../components/MainScreenSections/MainScreenSections.tsx";
-import Footer from "../../components/Footer/Footer.tsx";
-import ImageToFullScreen from "../../components/ImageToFullScreen/ImageToFullScreen.tsx";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../store/store.ts";
+import { useEffect, useState } from "react";
+import { socket } from "../../ws.ts";
+import Main from "../Main/Main.tsx";
+import MuseumHistory from "../MuseumHistory/MuseumHistory.tsx";
 
 export default function DuplicateScreen() {
-  const isModalOpen = useSelector(
-    (state: RootState) => state.isModalOpen.value,
-  );
+  const [screen, setScreen] = useState("main");
+
+  useEffect(() => {
+    socket.onmessage = ({ data }) => {
+      const event = JSON.parse(data);
+
+      switch (event.type) {
+        case "click":
+          setScreen("history");
+          break;
+        default:
+          break;
+      }
+    };
+  }, []);
 
   return (
-    <>
-      <header>
-        <Header
-          title="Эхо веков"
-          description="Исторический музей 25 лингвистического лицея"
-        />
-      </header>
-
-      <main>
-        <MainScreenBody />
-        {isModalOpen && <ImageToFullScreen />}
-        <MainScreenSections />
-      </main>
-
-      <footer>
-        <Footer mainPage={true} />
-      </footer>
-    </>
+    <div>
+      {screen === "main" && <Main isDublicate={true} />}
+      {screen === "history" && <MuseumHistory isDublicate={true} />}
+    </div>
   );
 }
