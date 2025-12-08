@@ -6,7 +6,7 @@ import ImageToFullScreen from "../../components/ImageToFullScreen/ImageToFullScr
 import type { RootState } from "../../store/store.ts";
 import { useSelector } from "react-redux";
 import type { IArchiveData } from "../../types/archiveData.types.ts";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 
@@ -22,12 +22,16 @@ const Photos = ({ info: propsInfo }: Props) => {
   );
   const modalImage = useSelector((state: RootState) => state.isModalOpen.image);
   const { isDuplicate } = useContext(ScreenModeContext);
-  useSyncDuplicate("archivePhotos", info, {
+  const [currentFolder, setCurrentFolder] = useState<IArchiveData>(info);
+
+  useEffect(() => {
+    if (info) setCurrentFolder(info);
+  }, [info]);
+
+  useSyncDuplicate("archivePhotos", currentFolder, {
     open: isModalOpen,
     image: modalImage,
   });
-
-  const [currentFolder, setCurrentFolder] = useState<IArchiveData>(info);
 
   return (
     <>
