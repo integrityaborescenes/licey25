@@ -1,20 +1,30 @@
 import { socket } from "../ws.ts";
 import { useEffect, useRef } from "react";
 
-export const useSyncDuplicate = (screenName: string, data?: any) => {
-  const lastSent = useRef<string>("");
+export const useSyncDuplicate = (
+  screenName: string,
+  info?: any,
+  modal?: any,
+) => {
+  const lastSent = useRef("");
 
   useEffect(() => {
-    const current = JSON.stringify({ name: screenName, info: data ?? null });
+    const data = {
+      name: screenName,
+      info: info || null,
+      modal: modal || null,
+    };
 
-    if (lastSent.current !== current) {
+    const json = JSON.stringify(data);
+
+    if (json !== lastSent.current) {
       socket.send(
         JSON.stringify({
           type: "currentScreen",
-          screen: JSON.parse(current),
+          screen: data,
         }),
       );
-      lastSent.current = current;
+      lastSent.current = json;
     }
-  }, [screenName, data]);
+  }, [screenName, info, modal]);
 };

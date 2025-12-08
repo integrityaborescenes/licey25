@@ -20,8 +20,12 @@ const Photos = ({ info: propsInfo }: Props) => {
   const isModalOpen = useSelector(
     (state: RootState) => state.isModalOpen.value,
   );
+  const modalImage = useSelector((state: RootState) => state.isModalOpen.image);
   const { isDuplicate } = useContext(ScreenModeContext);
-  useSyncDuplicate("archivePhotos", info);
+  useSyncDuplicate("archivePhotos", info, {
+    open: isModalOpen,
+    image: modalImage,
+  });
 
   const [currentFolder, setCurrentFolder] = useState<IArchiveData>(info);
 

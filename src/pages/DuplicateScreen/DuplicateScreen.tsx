@@ -11,11 +11,16 @@ import LyceumSelectedSections from "../LyceumSelectedSections/LyceumSelectedSect
 import Person from "../Person/Person.tsx";
 import ArchiveSelectedCategory from "../ArchiveSelectedCategory/ArchiveSelectedCategory.tsx";
 import Photos from "../Photos/Photos.tsx";
+import { openModal, closeModal } from "../../store/slices/isModalOpenSlice.ts";
+import { useDispatch } from "react-redux";
 
 export default function DuplicateScreen() {
-  const [screen, setScreen] = useState<{ name: string; info?: any }>({
+  const [screen, setScreen] = useState({
     name: "main",
+    info: null,
+    modal: null,
   });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     socket.onmessage = ({ data }) => {
@@ -23,6 +28,12 @@ export default function DuplicateScreen() {
 
       if (event.type === "currentScreen") {
         setScreen(event.screen);
+
+        if (event.screen.modal?.open) {
+          dispatch(openModal(event.screen.modal.image));
+        } else {
+          dispatch(closeModal());
+        }
       }
     };
   }, []);

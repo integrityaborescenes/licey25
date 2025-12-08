@@ -6,6 +6,8 @@ import DescriptionAndPhoto from "../../components/DescriptionAndPhoto/Descriptio
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store.ts";
 
 type Props = {
   info?: IPersonData;
@@ -14,7 +16,13 @@ type Props = {
 const Person = ({ info: propsInfo }: Props) => {
   const location = useLocation();
   const info = propsInfo ?? (location.state as IPersonData);
-  useSyncDuplicate("person", info);
+  const isModalOpen = useSelector(
+    (state: RootState) => state.isModalOpen.value,
+  );
+  const modalImage = useSelector((state: RootState) => state.isModalOpen.image);
+
+  useSyncDuplicate("person", info, { open: isModalOpen, image: modalImage });
+
   const { isDuplicate } = useContext(ScreenModeContext);
 
   return (

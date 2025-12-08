@@ -5,11 +5,22 @@ import { useGetFireDivisionDataQuery } from "../../store/services/fireDivisionDa
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store.ts";
 
 const FireDivison = () => {
   const { data } = useGetFireDivisionDataQuery();
   const fireData = data?.[0];
-  useSyncDuplicate("fireDivision");
+  const isModalOpen = useSelector(
+    (state: RootState) => state.isModalOpen.value,
+  );
+  const modalImage = useSelector((state: RootState) => state.isModalOpen.image);
+
+  useSyncDuplicate("fireDivision", null, {
+    open: isModalOpen,
+    image: modalImage,
+  });
+
   const { isDuplicate } = useContext(ScreenModeContext);
 
   if (!fireData) return null;

@@ -11,7 +11,9 @@ const Main = () => {
   const isModalOpen = useSelector(
     (state: RootState) => state.isModalOpen.value,
   );
-  useSyncDuplicate("main");
+  const modalImage = useSelector((state: RootState) => state.isModalOpen.image);
+
+  useSyncDuplicate("main", null, { open: isModalOpen, image: modalImage });
 
   return (
     <>
