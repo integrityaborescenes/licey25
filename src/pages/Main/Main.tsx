@@ -7,7 +7,11 @@ import type { RootState } from "../../store/store.ts";
 import ImageToFullScreen from "../../components/ImageToFullScreen/ImageToFullScreen.tsx";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 
-const Main = () => {
+type Props = {
+  sliderState?: { typeSelector: "Museum" | "Licey"; slider: number };
+};
+
+const Main = ({ sliderState }: Props) => {
   const isModalOpen = useSelector(
     (state: RootState) => state.isModalOpen.value,
   );
@@ -25,7 +29,7 @@ const Main = () => {
       </header>
 
       <main>
-        <MainScreenBody />
+        <MainScreenBody sliderState={sliderState} />
         {isModalOpen && <ImageToFullScreen />}
         <MainScreenSections />
       </main>

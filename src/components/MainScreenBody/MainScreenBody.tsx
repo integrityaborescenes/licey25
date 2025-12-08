@@ -3,7 +3,11 @@ import { useGetMainScreenDataQuery } from "../../store/services/mainScreenData.a
 import MainImageSlider from "../MainImageSlider/MainImageSlider.tsx";
 import { useNavigate } from "react-router";
 
-const MainScreenBody = () => {
+type Props = {
+  sliderState?: { typeSelector: "Museum" | "Licey"; slider: number };
+};
+
+const MainScreenBody = ({ sliderState }: Props) => {
   const { data } = useGetMainScreenDataQuery();
   const navigate = useNavigate();
   const handleClick = () => {
@@ -18,7 +22,7 @@ const MainScreenBody = () => {
           <p>Читать описание музея</p>
         </button>
       </div>
-      <MainImageSlider />
+      <MainImageSlider sliderState={sliderState} />
     </div>
   );
 };

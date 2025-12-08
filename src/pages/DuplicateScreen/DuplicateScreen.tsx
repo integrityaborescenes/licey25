@@ -20,6 +20,14 @@ export default function DuplicateScreen() {
     info: null,
     modal: null,
   });
+  const [sliderState, setSliderState] = useState<{
+    typeSelector: "Museum" | "Licey";
+    slider: number;
+  }>({
+    typeSelector: "Museum",
+    slider: 0,
+  });
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,12 +42,20 @@ export default function DuplicateScreen() {
         } else {
           dispatch(closeModal());
         }
+        if (event.screen.name === "mainSlider") {
+          const type =
+            event.screen.info?.typeSelector === "Licey" ? "Licey" : "Museum";
+          setSliderState({
+            typeSelector: type,
+            slider: event.screen.modal?.slider ?? 0,
+          });
+        }
       }
     };
   }, []);
 
   const ScreenMap: Record<string, JSX.Element> = {
-    main: <Main />,
+    main: <Main sliderState={sliderState} />,
     museumHistory: <MuseumHistory />,
     lyceumWW: <Lyceum25WW />,
     fireDivision: <FireDivison />,
@@ -59,5 +75,7 @@ export default function DuplicateScreen() {
     ),
   };
 
-  return <div>{ScreenMap[screen.name] || <Main />}</div>;
+  return (
+    <div>{ScreenMap[screen.name] || <Main sliderState={sliderState} />}</div>
+  );
 }

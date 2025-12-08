@@ -1,5 +1,5 @@
-import { socket } from "../ws.ts";
 import { useEffect, useRef } from "react";
+import { socket } from "../ws.ts";
 
 export const useSyncDuplicate = (
   screenName: string,
@@ -18,12 +18,7 @@ export const useSyncDuplicate = (
     const json = JSON.stringify(data);
 
     if (json !== lastSent.current) {
-      socket.send(
-        JSON.stringify({
-          type: "currentScreen",
-          screen: data,
-        }),
-      );
+      socket.send(JSON.stringify({ type: "currentScreen", screen: data }));
       lastSent.current = json;
     }
   }, [screenName, info, modal]);

@@ -1,13 +1,18 @@
 import styles from "./MainImageSlider.module.scss";
 import { useGetMainScreenDataQuery } from "../../store/services/mainScreenData.api.ts";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store.ts";
 import { openModal } from "../../store/slices/isModalOpenSlice.ts";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
+import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 const API_BASE_URL = "http://licey25.test.itlabs.top/";
 
-const MainImageSlider = () => {
+type Props = {
+  sliderState?: { typeSelector: "Museum" | "Licey"; slider: number };
+};
+
+const MainImageSlider = ({ sliderState }: Props) => {
   const { data } = useGetMainScreenDataQuery();
   const [typeSelector, setTypeSelector] = useState("Museum");
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -19,6 +24,23 @@ const MainImageSlider = () => {
     typeSelector === "Museum"
       ? (data?.mainScreenMuseumImages ?? [])
       : (data?.mainScreenLiceyImages ?? []);
+
+  useSyncDuplicate(
+    "mainSlider",
+    { typeSelector, imagesLength: images.length },
+    { slider: currentSlide },
+  );
+
+  useEffect(() => {
+    if (sliderState) {
+      setTypeSelector(sliderState.typeSelector);
+      setCurrentSlide(sliderState.slider);
+    }
+  }, [sliderState]);
+
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [typeSelector, images.length]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.touches[0].clientX);
