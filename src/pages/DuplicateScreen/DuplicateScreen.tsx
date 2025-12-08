@@ -13,6 +13,7 @@ import ArchiveSelectedCategory from "../ArchiveSelectedCategory/ArchiveSelectedC
 import Photos from "../Photos/Photos.tsx";
 import { openModal, closeModal } from "../../store/slices/isModalOpenSlice.ts";
 import { useDispatch } from "react-redux";
+import { setSlide } from "../../store/slices/currentSliderSlice.ts";
 
 export default function DuplicateScreen() {
   const [screen, setScreen] = useState({
@@ -31,8 +32,8 @@ export default function DuplicateScreen() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    socket.onmessage = ({ data }) => {
-      const event = JSON.parse(data);
+    const handler = (eventMessage: MessageEvent) => {
+      const event = JSON.parse(eventMessage.data);
 
       if (event.type === "currentScreen") {
         setScreen(event.screen);
@@ -42,6 +43,7 @@ export default function DuplicateScreen() {
         } else {
           dispatch(closeModal());
         }
+
         if (event.screen.name === "mainSlider") {
           const type =
             event.screen.info?.typeSelector === "Licey" ? "Licey" : "Museum";
@@ -51,8 +53,21 @@ export default function DuplicateScreen() {
           });
         }
       }
+
+      if (
+        event.type === "sliderChange" &&
+        event.sliderId === "duplicateScreenSlider"
+      ) {
+        dispatch(setSlide(event.slide));
+      }
     };
-  }, []);
+
+    socket.addEventListener("message", handler);
+
+    return () => {
+      socket.removeEventListener("message", handler);
+    };
+  }, [dispatch]);
 
   const ScreenMap: Record<string, JSX.Element> = {
     main: <Main sliderState={sliderState} />,

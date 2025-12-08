@@ -10,6 +10,7 @@ import { fireDivisionDataApi } from "./services/fireDivisionData.api.ts";
 import isWaitModeSlice from "./slices/isWaitModeSlice.ts";
 import { waitModeApi } from "./services/waitMode.api.ts";
 import { waitModeApi2 } from "./services/waitMode2.api.ts";
+import currentSliderSlice from "./slices/currentSliderSlice.ts";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     [waitModeApi2.reducerPath]: waitModeApi2.reducer,
     isModalOpen: isModalOpenSlice,
     isWaitMode: isWaitModeSlice,
+    currentSlider: currentSliderSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()

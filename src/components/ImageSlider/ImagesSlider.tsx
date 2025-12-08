@@ -1,9 +1,11 @@
 import styles from "./ImagesSlider.module.scss";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { openModal } from "../../store/slices/isModalOpenSlice.ts";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../../store/store.ts";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../store/store.ts";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
+import { setSlide } from "../../store/slices/currentSliderSlice.ts";
+import { socket } from "../../ws.ts";
 const API_BASE_URL = "http://licey25.test.itlabs.top/";
 
 type Props = {
@@ -12,22 +14,45 @@ type Props = {
 
 const ImagesSlider = ({ images }: Props) => {
   const imageList = images ?? [];
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const currentSlide = useSelector(
+    (state: RootState) => state.currentSlider.currentSlide,
+  );
   const dispatch = useDispatch<AppDispatch>();
   const { isDuplicate } = useContext(ScreenModeContext);
+
+  const handlePrev = () => {
+    const newSlide =
+      currentSlide !== 0 ? currentSlide - 1 : imageList.length - 1;
+    dispatch(setSlide(newSlide));
+
+    socket.send(
+      JSON.stringify({
+        type: "sliderChange",
+        slide: newSlide,
+        sliderId: "duplicateScreenSlider",
+      }),
+    );
+  };
+
+  const handleNext = () => {
+    const newSlide =
+      currentSlide !== imageList.length - 1 ? currentSlide + 1 : 0;
+    dispatch(setSlide(newSlide));
+
+    socket.send(
+      JSON.stringify({
+        type: "sliderChange",
+        slide: newSlide,
+        sliderId: "duplicateScreenSlider",
+      }),
+    );
+  };
 
   return (
     <div className={styles.imageSlider}>
       {imageList.length > 1 && !isDuplicate && (
         <>
-          <button
-            className={styles.arrowLeft}
-            onClick={() =>
-              setCurrentSlide((prev) =>
-                prev !== 0 ? prev - 1 : imageList.length - 1,
-              )
-            }
-          >
+          <button className={styles.arrowLeft} onClick={handlePrev}>
             <img
               src="/public/ico/arrowRight.svg"
               draggable={false}
@@ -35,14 +60,7 @@ const ImagesSlider = ({ images }: Props) => {
               height="35"
             />
           </button>
-          <button
-            className={styles.arrowRight}
-            onClick={() => {
-              setCurrentSlide((prev) =>
-                prev !== imageList.length - 1 ? prev + 1 : 0,
-              );
-            }}
-          >
+          <button className={styles.arrowRight} onClick={handleNext}>
             <img
               src="/public/ico/arrowRight.svg"
               draggable={false}
