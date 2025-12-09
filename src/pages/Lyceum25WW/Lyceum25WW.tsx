@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
+import WaitMode from "../../components/WaitMode/WaitMode.tsx";
 
 const Lyceum25WW = () => {
   const { isDuplicate } = useContext(ScreenModeContext);
@@ -23,6 +24,7 @@ const Lyceum25WW = () => {
       <footer>
         <Footer mainPage={false} />
       </footer>
+      {!isDuplicate && <WaitMode />}
     </>
   );
 };

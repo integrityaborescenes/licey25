@@ -10,6 +10,7 @@ import { useContext, useEffect, useState } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
+import WaitMode from "../../components/WaitMode/WaitMode.tsx";
 
 type Props = {
   info?: IArchiveData;
@@ -53,6 +54,7 @@ const Photos = ({ info: propsInfo }: Props) => {
       <footer>
         <Footer mainPage={false} />
       </footer>
+      {!isDuplicate && <WaitMode />}
     </>
   );
 };

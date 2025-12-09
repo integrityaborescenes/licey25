@@ -6,6 +6,9 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store.ts";
 import ImageToFullScreen from "../../components/ImageToFullScreen/ImageToFullScreen.tsx";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
+import WaitMode from "../../components/WaitMode/WaitMode.tsx";
+import { useContext } from "react";
+import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 
 type Props = {
   sliderState?: { typeSelector: "Museum" | "Licey"; slider: number };
@@ -18,6 +21,7 @@ const Main = ({ sliderState }: Props) => {
   const modalImage = useSelector((state: RootState) => state.isModalOpen.image);
 
   useSyncDuplicate("main", null, { open: isModalOpen, image: modalImage });
+  const { isDuplicate } = useContext(ScreenModeContext);
 
   return (
     <>
@@ -37,6 +41,8 @@ const Main = ({ sliderState }: Props) => {
       <footer>
         <Footer mainPage={true} />
       </footer>
+
+      {!isDuplicate && <WaitMode />}
     </>
   );
 };

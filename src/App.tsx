@@ -11,7 +11,6 @@ import History from "./pages/History/History.tsx";
 import Person from "./pages/Person/Person.tsx";
 import FireDivison from "./pages/FireDivision/FireDivison.tsx";
 import DuplicateScreen from "./pages/DuplicateScreen/DuplicateScreen.tsx";
-import WaitMode from "./components/WaitMode/WaitMode.tsx";
 import { ScreenModeContext } from "./context/ScreenModeContext.ts";
 
 function App() {
@@ -37,7 +36,6 @@ function App() {
           }
         />
       </Routes>
-      <WaitMode />
     </BrowserRouter>
   );
 }

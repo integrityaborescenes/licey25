@@ -5,6 +5,7 @@ import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
+import WaitMode from "../../components/WaitMode/WaitMode.tsx";
 
 const SchoolArchive = () => {
   useSyncDuplicate("archive");
@@ -23,6 +24,7 @@ const SchoolArchive = () => {
       <footer>
         <Footer mainPage={false} />
       </footer>
+      {!isDuplicate && <WaitMode />}
     </>
   );
 };

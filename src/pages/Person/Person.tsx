@@ -9,6 +9,7 @@ import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store.ts";
 import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
+import WaitMode from "../../components/WaitMode/WaitMode.tsx";
 
 type Props = {
   info?: IPersonData;
@@ -44,6 +45,7 @@ const Person = ({ info: propsInfo }: Props) => {
       <footer>
         <Footer mainPage={false} />
       </footer>
+      {!isDuplicate && <WaitMode />}
     </>
   );
 };

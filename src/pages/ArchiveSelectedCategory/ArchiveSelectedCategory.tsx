@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
+import WaitMode from "../../components/WaitMode/WaitMode.tsx";
 
 type Props = {
   info?: IArchiveCategories;
@@ -32,6 +33,7 @@ const ArchiveSelectedCategory = ({ info: propsInfo }: Props) => {
       <footer>
         <Footer mainPage={false} />
       </footer>
+      {!isDuplicate && <WaitMode />}
     </>
   );
 };

@@ -7,6 +7,7 @@ import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 import type { RootState } from "../../store/store.ts";
 import { useSelector } from "react-redux";
+import WaitMode from "../../components/WaitMode/WaitMode.tsx";
 
 const MuseumHistory = () => {
   const { data } = useGetMainScreenDataQuery();
@@ -37,6 +38,7 @@ const MuseumHistory = () => {
       <footer>
         <Footer mainPage={false} />
       </footer>
+      {!isDuplicate && <WaitMode />}
     </>
   );
 };

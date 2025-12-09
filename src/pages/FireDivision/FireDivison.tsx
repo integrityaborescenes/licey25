@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store.ts";
+import WaitMode from "../../components/WaitMode/WaitMode.tsx";
 
 const FireDivison = () => {
   const { data } = useGetFireDivisionDataQuery();
@@ -41,6 +42,7 @@ const FireDivison = () => {
       <footer>
         <Footer mainPage={false} />
       </footer>
+      {!isDuplicate && <WaitMode />}
     </>
   );
 };
