@@ -73,6 +73,8 @@ const MainImageSlider = ({ sliderState }: Props) => {
     }
   };
 
+  if (!images || images.length === 0) return null;
+
   return (
     <>
       {images.length > 0 && (
