@@ -12,7 +12,7 @@ const HistoryMainBlock = () => {
   return (
     <div className={styles.historyBlock}>
       <div className={styles.photos}>
-        <div className={styles.photosContainer}>
+        <div className={styles.photosContainer} data-scroll-id={"history"}>
           {person?.map((p) => {
             return (
               <div className={styles.item} key={p.id}>

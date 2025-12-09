@@ -4,10 +4,12 @@ import HistoryMainBlock from "../../components/HistoryMainBlock/HistoryMainBlock
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
+import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
 
 const History = () => {
   useSyncDuplicate("history");
   const { isDuplicate } = useContext(ScreenModeContext);
+  useSyncedScroll(true);
 
   return (
     <>

@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store.ts";
+import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
 
 type Props = {
   info?: IPersonData;
@@ -22,7 +23,7 @@ const Person = ({ info: propsInfo }: Props) => {
   const modalImage = useSelector((state: RootState) => state.isModalOpen.image);
 
   useSyncDuplicate("person", info, { open: isModalOpen, image: modalImage });
-
+  useSyncedScroll(true);
   const { isDuplicate } = useContext(ScreenModeContext);
 
   return (
