@@ -12,9 +12,15 @@ import Person from "../Person/Person.tsx";
 import ArchiveSelectedCategory from "../ArchiveSelectedCategory/ArchiveSelectedCategory.tsx";
 import Photos from "../Photos/Photos.tsx";
 import { openModal, closeModal } from "../../store/slices/isModalOpenSlice.ts";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSlide } from "../../store/slices/currentSliderSlice.ts";
 import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
+import {
+  startWaitMode,
+  stopWaitMode,
+} from "../../store/slices/isWaitModeSlice.ts";
+import WaitMode from "../../components/WaitMode/WaitMode.tsx";
+import type { RootState } from "../../store/store.ts";
 
 export default function DuplicateScreen() {
   const [screen, setScreen] = useState({
@@ -31,6 +37,8 @@ export default function DuplicateScreen() {
   });
 
   const dispatch = useDispatch();
+  const isActive = useSelector((state: RootState) => state.isWaitMode.isActive);
+
   useSyncedScroll(false);
   useEffect(() => {
     const handler = (eventMessage: MessageEvent) => {
@@ -53,6 +61,11 @@ export default function DuplicateScreen() {
             slider: event.screen.modal?.slider ?? 0,
           });
         }
+      }
+
+      if (event.type === "waitMode") {
+        if (event.action === "open") dispatch(startWaitMode(event.files));
+        if (event.action === "close") dispatch(stopWaitMode());
       }
 
       if (
@@ -92,6 +105,9 @@ export default function DuplicateScreen() {
   };
 
   return (
-    <div>{ScreenMap[screen.name] || <Main sliderState={sliderState} />}</div>
+    <div>
+      {ScreenMap[screen.name] || <Main sliderState={sliderState} />}
+      {isActive && <WaitMode />}
+    </div>
   );
 }

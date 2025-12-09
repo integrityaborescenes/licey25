@@ -11,14 +11,10 @@ import History from "./pages/History/History.tsx";
 import Person from "./pages/Person/Person.tsx";
 import FireDivison from "./pages/FireDivision/FireDivison.tsx";
 import DuplicateScreen from "./pages/DuplicateScreen/DuplicateScreen.tsx";
-import { useWaitModeObserver } from "./hooks/useWaitModeObserver.tsx";
 import WaitMode from "./components/WaitMode/WaitMode.tsx";
-import { useGetWaitModeDataQuery } from "./store/services/waitMode.api.ts";
 import { ScreenModeContext } from "./context/ScreenModeContext.ts";
 
 function App() {
-  const { data } = useGetWaitModeDataQuery();
-  useWaitModeObserver(data ?? []);
   return (
     <BrowserRouter>
       <Routes>

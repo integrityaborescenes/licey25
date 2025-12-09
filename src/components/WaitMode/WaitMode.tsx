@@ -1,68 +1,94 @@
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
-import styles from "./WaitMode.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { stopWaitMode } from "../../store/slices/isWaitModeSlice";
-import { useEffect, useState, useRef } from "react";
-import type { RootState } from "../../store/store";
+import {
+  startWaitMode,
+  stopWaitMode,
+} from "../../store/slices/isWaitModeSlice";
+import { useGetWaitModeDataQuery } from "../../store/services/waitMode.api";
 import { useGetWaitModeSettingQuery } from "../../store/services/waitMode2.api";
+import styles from "./WaitMode.module.scss";
+import type { WaitModeType } from "../../types/waitMode.types";
+import type { RootState } from "../../store/store.ts";
+import { socket } from "../../ws.ts";
 
-const API_BASE_URL = "http://licey25.test.itlabs.top";
-
-const DEFAULT_IMAGE_DURATION = 7000;
-const DEFAULT_VIDEO_DURATION = 0;
+const API_BASE_URL = "http://licey25.test.itlabs.top/";
 
 const WaitMode = () => {
-  const { data } = useSelector((state: RootState) => state.isWaitMode);
   const dispatch = useDispatch();
 
-  const [idx, setIdx] = useState(0);
+  const { data: filesRaw = [], isLoading: filesLoading } =
+    useGetWaitModeDataQuery();
+  const { data: settings, isLoading: settingsLoading } =
+    useGetWaitModeSettingQuery();
 
-  const { data: settings } = useGetWaitModeSettingQuery();
+  const { isActive } = useSelector((state: RootState) => state.isWaitMode);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const timerRef = useRef<number | null>(null);
+  const files = useMemo(
+    () => [...filesRaw].sort((a, b) => a.sequence - b.sequence),
+    [filesRaw],
+  );
 
-  const current = data[idx];
-  if (!current) return null;
+  const current: WaitModeType | undefined = files[currentIndex];
+  const isVideo = current?.file.match(/\.(mp4|webm|mov|avi)$/i);
 
-  const isVideo = Boolean(current.vichFile?.trim());
+  const resetAfkTimer = useCallback(() => {
+    clearTimeout((window as any).afkTimer);
 
-  const getDisplayDuration = () => {
-    const adminImageDuration = settings?.imageShowTime
-      ? settings.imageShowTime * 1000
-      : DEFAULT_IMAGE_DURATION;
+    if (isActive) return;
 
-    if (isVideo) return DEFAULT_VIDEO_DURATION;
-
-    return adminImageDuration;
-  };
-
-  const goNext = () => {
-    setIdx((prev) => {
-      if (prev + 1 < data.length) return prev + 1;
-      return 0;
-    });
-  };
+    (window as any).afkTimer = window.setTimeout(
+      () => {
+        if (files.length > 0) {
+          dispatch(startWaitMode(files));
+          socket.send(
+            JSON.stringify({
+              type: "waitMode",
+              action: "open",
+              files,
+            }),
+          );
+          setCurrentIndex(0);
+        }
+      },
+      settings?.timeToWaitMode ? settings.timeToWaitMode * 1000 : 10000,
+    );
+  }, [dispatch, files, settings?.timeToWaitMode, isActive]);
 
   useEffect(() => {
-    if (timerRef.current !== null) {
-      clearTimeout(timerRef.current);
-    }
+    const events = ["mousemove", "keydown", "mousedown", "touchstart"];
+    events.forEach((e) => window.addEventListener(e, resetAfkTimer));
+    resetAfkTimer();
+    return () =>
+      events.forEach((e) => window.removeEventListener(e, resetAfkTimer));
+  }, [resetAfkTimer]);
 
-    if (!isVideo) {
-      const duration = getDisplayDuration();
-      timerRef.current = window.setTimeout(goNext, duration);
-    }
+  useEffect(() => {
+    if (!isActive || !current || isVideo) return;
 
-    return () => {
-      if (timerRef.current !== null) {
-        clearTimeout(timerRef.current);
-      }
-    };
-  }, [idx, isVideo, data, settings]);
+    const timer = window.setTimeout(
+      () => {
+        setCurrentIndex((prev) => (prev + 1) % files.length);
+      },
+      settings?.imageShowTime ? settings.imageShowTime * 1000 : 3000,
+    );
+
+    return () => window.clearTimeout(timer);
+  }, [current, isActive, files, isVideo, settings?.imageShowTime]);
 
   const handleVideoEnd = () => {
-    goNext();
+    setCurrentIndex((prev) => (prev + 1) % files.length);
   };
+
+  if (
+    filesLoading ||
+    settingsLoading ||
+    !settings ||
+    files.length === 0 ||
+    !isActive
+  )
+    return null;
 
   return createPortal(
     <div className={styles.modal}>
@@ -70,14 +96,13 @@ const WaitMode = () => {
         {!isVideo && (
           <img
             src={`${API_BASE_URL}${current.file}`}
-            draggable={false}
             alt=""
+            draggable={false}
           />
         )}
-
         {isVideo && (
           <video
-            src={`${API_BASE_URL}${current.vichFile}`}
+            src={`${API_BASE_URL}${current.file}`}
             autoPlay
             muted
             playsInline
@@ -89,7 +114,15 @@ const WaitMode = () => {
 
         <div
           className={styles.closeWindow}
-          onClick={() => dispatch(stopWaitMode())}
+          onClick={() => {
+            dispatch(stopWaitMode());
+            socket.send(
+              JSON.stringify({
+                type: "waitMode",
+                action: "close",
+              }),
+            );
+          }}
         >
           <img
             src="/ico/closeIco.svg"
