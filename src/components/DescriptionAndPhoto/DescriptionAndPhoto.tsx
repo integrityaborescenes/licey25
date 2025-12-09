@@ -20,11 +20,10 @@ const DescriptionAndPhoto = ({
   const isModalOpen = useSelector(
     (state: RootState) => state.isModalOpen.value,
   );
-
   return (
     <div className={styles.container}>
       <div className={styles.column}>
-        {person && (
+        {person && personBio !== undefined && (
           <div className={styles.bio}>
             <p>{personBio}</p>
           </div>

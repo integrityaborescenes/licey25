@@ -8,7 +8,6 @@ const HistoryMainBlock = () => {
   const { data } = useGetHistoryQuery();
   const { data: person } = useGetPersonDataQuery();
   const historyText = data?.text;
-
   return (
     <div className={styles.historyBlock}>
       <div className={styles.photos}>
@@ -18,9 +17,12 @@ const HistoryMainBlock = () => {
               <div className={styles.item} key={p.id}>
                 <Link to={`/history/${p.id}`} state={p}>
                   <div className={styles.image}>
-                    <img
-                      src={`${API_BASE_URL}${p.historyPersonImages[0].file}`}
-                    />
+                    {p.historyPersonImages?.[0]?.file && (
+                      <img
+                        src={`${API_BASE_URL}${p.historyPersonImages[0].file}`}
+                        alt={p.name}
+                      />
+                    )}
                   </div>
                 </Link>
                 <div className={styles.title}>
