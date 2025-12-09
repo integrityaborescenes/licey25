@@ -30,7 +30,10 @@ const DescriptionAndPhoto = ({
           </div>
         )}
         <div className={styles.description}>
-          <div className={styles.descriptionCont}>
+          <div
+            className={styles.descriptionCont}
+            data-scroll-id={`description-${description?.split("").slice(0, 5).join("")}`}
+          >
             {description &&
               description
                 .replace(/<\/?div>/g, "")

@@ -4,11 +4,12 @@ import LyceySections from "../../components/LyceySections/LyceySections.tsx";
 import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
+import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
 
 const Lyceum25WW = () => {
   const { isDuplicate } = useContext(ScreenModeContext);
   useSyncDuplicate("lyceumWW");
-
+  useSyncedScroll(true);
   return (
     <>
       <header>

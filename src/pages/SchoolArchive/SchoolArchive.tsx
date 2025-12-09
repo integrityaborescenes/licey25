@@ -4,11 +4,12 @@ import SchoolArchiveSections from "../../components/SchoolArchiveSections/School
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
+import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
 
 const SchoolArchive = () => {
   useSyncDuplicate("archive");
   const { isDuplicate } = useContext(ScreenModeContext);
-
+  useSyncedScroll(true);
   return (
     <>
       <header>

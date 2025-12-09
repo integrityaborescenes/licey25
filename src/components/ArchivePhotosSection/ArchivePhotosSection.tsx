@@ -26,7 +26,10 @@ const ArchivePhotosSection = ({ selectedCategory }: Props) => {
 
   return (
     <div className={styles.archiveSelectedCategorySections}>
-      <div className={styles.sectionContainer}>
+      <div
+        className={styles.sectionContainer}
+        data-scroll-id={`archiveSelectedCategorySections-${selectedCategory.id}`}
+      >
         {filteredData?.map((info: IArchiveData) => (
           <div className={styles.wrap} key={info?.id}>
             <Link

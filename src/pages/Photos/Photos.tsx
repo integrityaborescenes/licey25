@@ -9,6 +9,7 @@ import type { IArchiveData } from "../../types/archiveData.types.ts";
 import { useContext, useEffect, useState } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
+import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
 
 type Props = {
   info?: IArchiveData;
@@ -32,6 +33,7 @@ const Photos = ({ info: propsInfo }: Props) => {
     open: isModalOpen,
     image: modalImage,
   });
+  useSyncedScroll(true);
 
   return (
     <>

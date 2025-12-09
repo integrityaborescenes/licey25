@@ -20,7 +20,10 @@ const LyceySections = () => {
 
   return (
     <div className={styles.lyceySections}>
-      <div className={styles.sectionContainer}>
+      <div
+        className={styles.sectionContainer}
+        data-scroll-id={"lyceumSelectedSection"}
+      >
         {data?.map((info: ILyceyData) => (
           <div
             className={styles.wrap}

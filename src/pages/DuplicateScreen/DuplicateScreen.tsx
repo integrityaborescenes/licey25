@@ -14,6 +14,7 @@ import Photos from "../Photos/Photos.tsx";
 import { openModal, closeModal } from "../../store/slices/isModalOpenSlice.ts";
 import { useDispatch } from "react-redux";
 import { setSlide } from "../../store/slices/currentSliderSlice.ts";
+import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
 
 export default function DuplicateScreen() {
   const [screen, setScreen] = useState({
@@ -30,7 +31,7 @@ export default function DuplicateScreen() {
   });
 
   const dispatch = useDispatch();
-
+  useSyncedScroll(false);
   useEffect(() => {
     const handler = (eventMessage: MessageEvent) => {
       const event = JSON.parse(eventMessage.data);

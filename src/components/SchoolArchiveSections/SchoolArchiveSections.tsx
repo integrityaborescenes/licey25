@@ -7,7 +7,10 @@ const SchoolArchiveSections = () => {
   const { data } = useGetArchiveCategoriesQuery();
   return (
     <div className={styles.archiveCategoriesSections}>
-      <div className={styles.sectionContainer}>
+      <div
+        className={styles.sectionContainer}
+        data-scroll-id={"archiveCategories"}
+      >
         {data?.map((info: IArchiveCategories) => (
           <div className={styles.wrap} key={info?.id}>
             <Link to={`/archive/${info?.id}`} state={info}>

@@ -8,6 +8,7 @@ import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store.ts";
+import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
 
 type Props = {
   info?: ILyceyData;
@@ -26,7 +27,7 @@ const LyceumSelectedSections = ({ info: propsInfo }: Props) => {
     open: isModalOpen,
     image: modalImage,
   });
-
+  useSyncedScroll(true);
   return (
     <>
       <header>

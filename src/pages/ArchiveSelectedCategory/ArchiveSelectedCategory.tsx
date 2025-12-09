@@ -6,6 +6,7 @@ import type { IArchiveCategories } from "../../types/archiveCategories.types.ts"
 import { useContext } from "react";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
+import { useSyncedScroll } from "../../hooks/useSyncedScroll.ts";
 
 type Props = {
   info?: IArchiveCategories;
@@ -16,6 +17,7 @@ const ArchiveSelectedCategory = ({ info: propsInfo }: Props) => {
   const info = propsInfo ?? (location.state as IArchiveCategories);
   const { isDuplicate } = useContext(ScreenModeContext);
   useSyncDuplicate("archiveSelectedCategory", info);
+  useSyncedScroll(true);
 
   return (
     <>

@@ -58,7 +58,10 @@ const SelectedPhotos = ({
         </div>
       )}
       <div className={styles.selectedPhotos}>
-        <div className={styles.photosContainer}>
+        <div
+          className={styles.photosContainer}
+          data-scroll-id={`photos-${currentIndex}`}
+        >
           {data?.archiveImages.map((item: IArchivesImages) => {
             return (
               <div
