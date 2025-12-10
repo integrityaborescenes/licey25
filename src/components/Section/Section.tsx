@@ -22,7 +22,7 @@ const Section = ({ title, block }: Props) => {
       <div className={styles.buttonToSection}>
         <div className={styles.link}>
           <img
-            src="/public/ico/arrowRight.svg"
+            src="/ico/arrowRight.svg"
             draggable={false}
             width="29"
             height="25"

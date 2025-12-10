@@ -22,7 +22,7 @@ const Footer = ({ mainPage }: Props) => {
       <div className={styles.createdBy}>
         <p>Разработанно в</p>
         <img
-          src="/public/logo/ITLABS_logo_color_blue_2.svg"
+          src="/logo/ITLABS_logo_color_blue_2.svg"
           draggable={false}
           width="202"
           height="42"

@@ -55,7 +55,7 @@ const ImagesSlider = ({ images }: Props) => {
         <>
           <button className={styles.arrowLeft} onClick={handlePrev}>
             <img
-              src="/public/ico/arrowRight.svg"
+              src="/ico/arrowRight.svg"
               draggable={false}
               width="40"
               height="35"
@@ -63,7 +63,7 @@ const ImagesSlider = ({ images }: Props) => {
           </button>
           <button className={styles.arrowRight} onClick={handleNext}>
             <img
-              src="/public/ico/arrowRight.svg"
+              src="/ico/arrowRight.svg"
               draggable={false}
               width="40"
               height="35"

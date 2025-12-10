@@ -45,7 +45,7 @@ const Header = ({ title, description, backButton }: Props) => {
         <div className={styles.headerLogos}>
           <div className={styles.scoolLogo1}>
             <img
-              src="/public/logo/schoolHeaderLogo1.svg"
+              src="/logo/schoolHeaderLogo1.svg"
               draggable={false}
               width="153"
               height="153"
@@ -53,7 +53,7 @@ const Header = ({ title, description, backButton }: Props) => {
           </div>
           <div className={styles.scoolLogo2}>
             <img
-              src="/public/logo/schoolHeaderLogo2.svg"
+              src="/logo/schoolHeaderLogo2.svg"
               draggable={false}
               width="125"
               height="126"
