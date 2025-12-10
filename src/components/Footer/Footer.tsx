@@ -5,18 +5,6 @@ type Props = {
 };
 
 const Footer = ({ mainPage }: Props) => {
-  let timer: ReturnType<typeof setTimeout>;
-
-  const handleStart = () => {
-    timer = setTimeout(() => {
-      window.location.href = "http://licey25.test.itlabs.top/admin/login";
-    }, 5000);
-  };
-
-  const handleEnd = () => {
-    clearTimeout(timer);
-  };
-
   return (
     <div className={`${styles.footer} ${mainPage ? styles.mainPage : ""}`}>
       <div className={styles.createdBy}>
@@ -28,11 +16,6 @@ const Footer = ({ mainPage }: Props) => {
           height="42"
         />
       </div>
-      <div
-        className={styles.leave}
-        onTouchStart={handleStart}
-        onTouchEnd={handleEnd}
-      ></div>
     </div>
   );
 };

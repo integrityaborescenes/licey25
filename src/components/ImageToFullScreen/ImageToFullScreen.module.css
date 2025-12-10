@@ -36,6 +36,7 @@
   top: 0;
   right: 0;
   margin: 89.69px;
+  z-index: 100;
 }
 .modal .image img {
   position: relative;
