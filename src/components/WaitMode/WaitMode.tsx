@@ -12,8 +12,13 @@ import type { WaitModeType } from "../../types/waitMode.types";
 import type { RootState } from "../../store/store.ts";
 import { socket } from "../../ws.ts";
 import { API_URL } from "../../config.ts";
+import { closeModal } from "../../store/slices/isModalOpenSlice.ts";
 
-const WaitMode = () => {
+type Props = {
+  isDuplicate?: boolean;
+};
+
+const WaitMode = ({ isDuplicate }: Props) => {
   const dispatch = useDispatch();
 
   const { data: filesRaw = [], isLoading: filesLoading } =
@@ -89,9 +94,26 @@ const WaitMode = () => {
   )
     return null;
 
+  const handleContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   return createPortal(
-    <div className={styles.modal}>
-      <div className={styles.image}>
+    <div
+      className={styles.modal}
+      onClick={() => {
+        if (!isDuplicate) {
+          dispatch(stopWaitMode());
+          socket.send(
+            JSON.stringify({
+              type: "waitMode",
+              action: "close",
+            }),
+          );
+        }
+      }}
+    >
+      <div className={styles.image} onClick={handleContentClick}>
         {!isVideo && (
           <img src={`${API_URL}${current.file}`} alt="" draggable={false} />
         )}
@@ -110,13 +132,15 @@ const WaitMode = () => {
         <div
           className={styles.closeWindow}
           onClick={() => {
-            dispatch(stopWaitMode());
-            socket.send(
-              JSON.stringify({
-                type: "waitMode",
-                action: "close",
-              }),
-            );
+            if (!isDuplicate) {
+              dispatch(stopWaitMode());
+              socket.send(
+                JSON.stringify({
+                  type: "waitMode",
+                  action: "close",
+                }),
+              );
+            }
           }}
         >
           <img

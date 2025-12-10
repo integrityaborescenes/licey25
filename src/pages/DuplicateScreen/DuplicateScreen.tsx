@@ -107,7 +107,7 @@ export default function DuplicateScreen() {
   return (
     <div style={{ pointerEvents: "none" }}>
       {ScreenMap[screen.name] || <Main sliderState={sliderState} />}
-      {isActive && <WaitMode />}
+      {isActive && <WaitMode isDuplicate={true} />}
     </div>
   );
 }

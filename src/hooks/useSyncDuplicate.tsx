@@ -9,6 +9,7 @@ export const useSyncDuplicate = (
   const lastSent = useRef("");
 
   useEffect(() => {
+    socket.send(JSON.stringify({ type: "waitMode", action: "close" }));
     const data = {
       name: screenName,
       info: info || null,
