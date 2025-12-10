@@ -2,17 +2,20 @@ import styles from "./MainScreenSections.module.scss";
 import Section from "../Section/Section.tsx";
 import { useNavigate } from "react-router";
 import { socket } from "../../ws.ts";
+import { debounce } from "../../utils/debounce.ts";
 
 const mainScreenSections = () => {
   const navigate = useNavigate();
 
   const handleClick = (path: string) => {
-    socket.send(
-      JSON.stringify({
-        type: `${path}`,
-        path,
-      }),
-    );
+    debounce(() => {
+      socket.send(
+        JSON.stringify({
+          type: `${path}`,
+          path,
+        }),
+      );
+    });
     navigate(path);
   };
 

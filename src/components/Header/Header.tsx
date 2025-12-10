@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store.ts";
 import { setSlide } from "../../store/slices/currentSliderSlice.ts";
 import { socket } from "../../ws.ts";
+import { debounce } from "../../utils/debounce.ts";
 
 type Props = {
   title: string;
@@ -18,7 +19,7 @@ const Header = ({ title, description, backButton }: Props) => {
         {backButton && (
           <div
             className={styles.backButton}
-            onClick={() => {
+            onClick={debounce(() => {
               history.back();
               dispatch(setSlide(0));
               socket.send(
@@ -28,7 +29,7 @@ const Header = ({ title, description, backButton }: Props) => {
                   sliderId: "duplicateScreenSlider",
                 }),
               );
-            }}
+            })}
           >
             <img
               src="/ico/arrowRight.svg"

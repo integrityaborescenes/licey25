@@ -4,17 +4,20 @@ import Section from "../Section/Section.tsx";
 import type { ILyceyData } from "../../types/lyceyData.types.ts";
 import { useNavigate } from "react-router";
 import { socket } from "../../ws.ts";
+import { debounce } from "../../utils/debounce.ts";
 const LyceySections = () => {
   const { data } = useGetLiceyDataQuery();
 
   const navigate = useNavigate();
   const handleClick = (info: ILyceyData) => {
-    socket.send(
-      JSON.stringify({
-        type: "/lyceumSelectedSection",
-        data: info,
-      }),
-    );
+    debounce(() => {
+      socket.send(
+        JSON.stringify({
+          type: "/lyceumSelectedSection",
+          data: info,
+        }),
+      );
+    });
     navigate(`/lyceumWW/${info.id}`, { state: info });
   };
 

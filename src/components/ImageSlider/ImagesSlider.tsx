@@ -7,6 +7,7 @@ import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { setSlide } from "../../store/slices/currentSliderSlice.ts";
 import { socket } from "../../ws.ts";
 import { API_URL } from "../../config.ts";
+import { debounce } from "../../utils/debounce.ts";
 
 type Props = {
   images?: { file: string }[];
@@ -26,13 +27,15 @@ const ImagesSlider = ({ images }: Props) => {
       currentSlide !== 0 ? currentSlide - 1 : imageList.length - 1;
     dispatch(setSlide(newSlide));
 
-    socket.send(
-      JSON.stringify({
-        type: "sliderChange",
-        slide: newSlide,
-        sliderId: "duplicateScreenSlider",
-      }),
-    );
+    debounce(() => {
+      socket.send(
+        JSON.stringify({
+          type: "sliderChange",
+          slide: newSlide,
+          sliderId: "duplicateScreenSlider",
+        }),
+      );
+    });
   };
 
   const handleNext = () => {
@@ -40,13 +43,15 @@ const ImagesSlider = ({ images }: Props) => {
       currentSlide !== imageList.length - 1 ? currentSlide + 1 : 0;
     dispatch(setSlide(newSlide));
 
-    socket.send(
-      JSON.stringify({
-        type: "sliderChange",
-        slide: newSlide,
-        sliderId: "duplicateScreenSlider",
-      }),
-    );
+    debounce(() => {
+      socket.send(
+        JSON.stringify({
+          type: "sliderChange",
+          slide: newSlide,
+          sliderId: "duplicateScreenSlider",
+        }),
+      );
+    });
   };
 
   return (

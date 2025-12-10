@@ -3,8 +3,9 @@ import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../store/store.ts";
 import { closeModal } from "../../store/slices/isModalOpenSlice.ts";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { API_URL } from "../../config.ts";
+import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 
 const ImageToFullScreen = () => {
   const image = useSelector((state: RootState) => state.isModalOpen.image);
@@ -12,7 +13,7 @@ const ImageToFullScreen = () => {
   const dispatch = useDispatch<AppDispatch>();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-
+  const { isDuplicate } = useContext(ScreenModeContext);
   const isVideo = /\.(mp4|webm|ogg)$/i.test(image);
 
   const handlePlay = () => {
@@ -30,7 +31,7 @@ const ImageToFullScreen = () => {
     <div
       className={styles.modal}
       onClick={() => {
-        dispatch(closeModal());
+        if (!isDuplicate) dispatch(closeModal());
       }}
     >
       <div className={styles.image} onClick={handleContentClick}>
@@ -60,7 +61,7 @@ const ImageToFullScreen = () => {
         <div
           className={styles.closeWindow}
           onClick={() => {
-            dispatch(closeModal());
+            if (!isDuplicate) dispatch(closeModal());
           }}
         >
           <img
