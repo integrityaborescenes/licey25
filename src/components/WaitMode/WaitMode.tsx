@@ -45,7 +45,6 @@ const WaitMode = ({ isDuplicate }: Props) => {
       () => {
         if (files.length > 0) {
           dispatch(startWaitMode(files));
-
           socket.send(
             JSON.stringify({
               type: "waitMode",
