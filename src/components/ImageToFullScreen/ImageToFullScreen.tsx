@@ -22,6 +22,10 @@ const ImageToFullScreen = () => {
     }
   };
 
+  const handleContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   return createPortal(
     <div
       className={styles.modal}
@@ -29,7 +33,7 @@ const ImageToFullScreen = () => {
         dispatch(closeModal());
       }}
     >
-      <div className={styles.image}>
+      <div className={styles.image} onClick={handleContentClick}>
         {!isVideo && <img src={`${API_URL}${image}`} draggable={false} />}
         {isVideo && (
           <>
