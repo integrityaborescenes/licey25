@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store.ts";
 import { openModal } from "../../store/slices/isModalOpenSlice.ts";
 import { useGetArchiveDataQuery } from "../../store/services/archiveData.api.ts";
-const API_BASE_URL = "http://licey25.test.itlabs.top";
+import { API_URL } from "../../config.ts";
 
 type Props = {
   data: IArchiveData;
@@ -72,7 +72,7 @@ const SelectedPhotos = ({
                 }}
               >
                 <div className={styles.image}>
-                  <img src={`${API_BASE_URL}${item.file}`} />
+                  <img src={`${API_URL}${item.file}`} />
                 </div>
                 <div className={styles.title}>
                   <p>{item.title}</p>

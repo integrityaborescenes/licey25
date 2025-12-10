@@ -2,7 +2,7 @@ import styles from "./HistoryMainBlock.module.scss";
 import { useGetHistoryQuery } from "../../store/services/history.api.ts";
 import { Link } from "react-router";
 import { useGetPersonDataQuery } from "../../store/services/personData.api.ts";
-const API_BASE_URL = "http://licey25.test.itlabs.top";
+import { API_URL } from "../../config.ts";
 
 const HistoryMainBlock = () => {
   const { data } = useGetHistoryQuery();
@@ -19,7 +19,7 @@ const HistoryMainBlock = () => {
                   <div className={styles.image}>
                     {p.historyPersonImages?.[0]?.file && (
                       <img
-                        src={`${API_BASE_URL}${p.historyPersonImages[0].file}`}
+                        src={`${API_URL}${p.historyPersonImages[0].file}`}
                         alt={p.name}
                       />
                     )}

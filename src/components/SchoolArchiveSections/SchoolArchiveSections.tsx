@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import Section from "../Section/Section.tsx";
 import { useGetArchiveCategoriesQuery } from "../../store/services/archiveCategories.api.ts";
 import type { IArchiveCategories } from "../../types/archiveCategories.types.ts";
+
 const SchoolArchiveSections = () => {
   const { data } = useGetArchiveCategoriesQuery();
   return (

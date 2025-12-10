@@ -11,8 +11,7 @@ import styles from "./WaitMode.module.scss";
 import type { WaitModeType } from "../../types/waitMode.types";
 import type { RootState } from "../../store/store.ts";
 import { socket } from "../../ws.ts";
-
-const API_BASE_URL = "http://licey25.test.itlabs.top/";
+import { API_URL } from "../../config.ts";
 
 const WaitMode = () => {
   const dispatch = useDispatch();
@@ -94,15 +93,11 @@ const WaitMode = () => {
     <div className={styles.modal}>
       <div className={styles.image}>
         {!isVideo && (
-          <img
-            src={`${API_BASE_URL}${current.file}`}
-            alt=""
-            draggable={false}
-          />
+          <img src={`${API_URL}${current.file}`} alt="" draggable={false} />
         )}
         {isVideo && (
           <video
-            src={`${API_BASE_URL}${current.file}`}
+            src={`${API_URL}${current.file}`}
             autoPlay
             muted
             playsInline

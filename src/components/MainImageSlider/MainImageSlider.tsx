@@ -6,7 +6,7 @@ import type { AppDispatch } from "../../store/store.ts";
 import { openModal } from "../../store/slices/isModalOpenSlice.ts";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
-const API_BASE_URL = "http://licey25.test.itlabs.top/";
+import { API_URL } from "../../config.ts";
 
 type Props = {
   sliderState?: { typeSelector: "Museum" | "Licey"; slider: number };
@@ -105,7 +105,7 @@ const MainImageSlider = ({ sliderState }: Props) => {
               {images.map((img, i) => (
                 <img
                   key={i}
-                  src={`${API_BASE_URL}${img.file}`}
+                  src={`${API_URL}${img.file}`}
                   alt=""
                   className={styles.slide}
                   onClick={() => {

@@ -6,7 +6,7 @@ import type { AppDispatch, RootState } from "../../store/store.ts";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { setSlide } from "../../store/slices/currentSliderSlice.ts";
 import { socket } from "../../ws.ts";
-const API_BASE_URL = "http://licey25.test.itlabs.top/";
+import { API_URL } from "../../config.ts";
 
 type Props = {
   images?: { file: string }[];
@@ -79,7 +79,7 @@ const ImagesSlider = ({ images }: Props) => {
           {imageList.map((img, i) => (
             <img
               key={i}
-              src={`${API_BASE_URL}${img.file}`}
+              src={`${API_URL}${img.file}`}
               alt=""
               className={styles.slide}
               onClick={() => {

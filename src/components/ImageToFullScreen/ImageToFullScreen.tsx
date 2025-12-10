@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../store/store.ts";
 import { closeModal } from "../../store/slices/isModalOpenSlice.ts";
 import { useRef, useState } from "react";
-const API_BASE_URL = "http://licey25.test.itlabs.top";
+import { API_URL } from "../../config.ts";
 
 const ImageToFullScreen = () => {
   const image = useSelector((state: RootState) => state.isModalOpen.image);
@@ -23,9 +23,14 @@ const ImageToFullScreen = () => {
   };
 
   return createPortal(
-    <div className={styles.modal}>
+    <div
+      className={styles.modal}
+      onClick={() => {
+        dispatch(closeModal());
+      }}
+    >
       <div className={styles.image}>
-        {!isVideo && <img src={`${API_BASE_URL}${image}`} draggable={false} />}
+        {!isVideo && <img src={`${API_URL}${image}`} draggable={false} />}
         {isVideo && (
           <>
             {!isPlaying && (
@@ -41,7 +46,7 @@ const ImageToFullScreen = () => {
             )}
             <video
               ref={videoRef}
-              src={`${API_BASE_URL}${image}`}
+              src={`${API_URL}${image}`}
               controls={isPlaying}
               draggable={false}
               className={styles.video}
