@@ -110,9 +110,7 @@ const MainImageSlider = ({ sliderState }: Props) => {
                   alt=""
                   className={styles.slide}
                   onClick={() => {
-                    debounce(() => {
-                      dispatch(openModal(img.file));
-                    });
+                    dispatch(openModal(img.file));
                   }}
                 />
               ))}

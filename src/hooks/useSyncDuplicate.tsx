@@ -9,7 +9,6 @@ export const useSyncDuplicate = (
   const lastSent = useRef("");
 
   useEffect(() => {
-    socket.send(JSON.stringify({ type: "waitMode", action: "close" }));
     const data = {
       name: screenName,
       info: info || null,
@@ -19,8 +18,18 @@ export const useSyncDuplicate = (
     const json = JSON.stringify(data);
 
     if (json !== lastSent.current) {
-      socket.send(JSON.stringify({ type: "currentScreen", screen: data }));
-      lastSent.current = json;
+      if (socket.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify({ type: "waitMode", action: "close" }));
+        socket.send(JSON.stringify({ type: "currentScreen", screen: data }));
+        lastSent.current = json;
+      } else {
+        const handleOpen = () => {
+          socket.send(JSON.stringify({ type: "waitMode", action: "close" }));
+          socket.send(JSON.stringify({ type: "currentScreen", screen: data }));
+          lastSent.current = json;
+        };
+        socket.addEventListener("open", handleOpen, { once: true });
+      }
     }
   }, [screenName, info, modal]);
 };
