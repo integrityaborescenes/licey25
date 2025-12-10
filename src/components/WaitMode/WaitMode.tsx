@@ -12,7 +12,6 @@ import type { WaitModeType } from "../../types/waitMode.types";
 import type { RootState } from "../../store/store.ts";
 import { socket } from "../../ws.ts";
 import { API_URL } from "../../config.ts";
-import { debounce } from "../../utils/debounce.ts";
 
 type Props = {
   isDuplicate?: boolean;
@@ -47,15 +46,13 @@ const WaitMode = ({ isDuplicate }: Props) => {
         if (files.length > 0) {
           dispatch(startWaitMode(files));
 
-          debounce(() => {
-            socket.send(
-              JSON.stringify({
-                type: "waitMode",
-                action: "open",
-                files,
-              }),
-            );
-          });
+          socket.send(
+            JSON.stringify({
+              type: "waitMode",
+              action: "open",
+              files,
+            }),
+          );
 
           setCurrentIndex(0);
         }
@@ -109,14 +106,12 @@ const WaitMode = ({ isDuplicate }: Props) => {
         if (!isDuplicate) {
           dispatch(stopWaitMode());
 
-          debounce(() => {
-            socket.send(
-              JSON.stringify({
-                type: "waitMode",
-                action: "close",
-              }),
-            );
-          });
+          socket.send(
+            JSON.stringify({
+              type: "waitMode",
+              action: "close",
+            }),
+          );
         }
       }}
     >
@@ -141,14 +136,12 @@ const WaitMode = ({ isDuplicate }: Props) => {
           onClick={() => {
             if (!isDuplicate) {
               dispatch(stopWaitMode());
-              debounce(() => {
-                socket.send(
-                  JSON.stringify({
-                    type: "waitMode",
-                    action: "close",
-                  }),
-                );
-              });
+              socket.send(
+                JSON.stringify({
+                  type: "waitMode",
+                  action: "close",
+                }),
+              );
             }
           }}
         >
