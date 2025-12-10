@@ -88,7 +88,9 @@ const ImagesSlider = ({ images }: Props) => {
               alt=""
               className={styles.slide}
               onClick={() => {
-                dispatch(openModal(img.file));
+                debounce(() => {
+                  dispatch(openModal(img.file));
+                });
               }}
             />
           ))}
