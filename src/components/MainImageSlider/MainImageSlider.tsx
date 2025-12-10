@@ -7,7 +7,6 @@ import { openModal } from "../../store/slices/isModalOpenSlice.ts";
 import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 import { useSyncDuplicate } from "../../hooks/useSyncDuplicate.tsx";
 import { API_URL } from "../../config.ts";
-import { debounce } from "../../utils/debounce.ts";
 
 type Props = {
   sliderState?: { typeSelector: "Museum" | "Licey"; slider: number };
