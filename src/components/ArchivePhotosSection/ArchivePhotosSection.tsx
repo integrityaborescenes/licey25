@@ -11,19 +11,10 @@ type Props = {
 
 const ArchivePhotosSection = ({ selectedCategory }: Props) => {
   const { data } = useGetArchiveDataQuery();
-  const yearMatch = selectedCategory.title.match(/(\d{4})\s*по\s*(\d{4})/);
-  const startYear = yearMatch ? parseInt(yearMatch[1], 10) : null;
-  const endYear = yearMatch ? parseInt(yearMatch[2], 10) : null;
 
-  const filteredData = data?.filter((item: IArchiveData) => {
-    const itemYearMatch = item.title.match(/(\d{4})/);
-    const itemYear = itemYearMatch ? parseInt(itemYearMatch[1], 10) : null;
-    if (itemYear !== null && startYear !== null && endYear !== null) {
-      return itemYear >= startYear && itemYear <= endYear;
-    }
-    return false;
-  });
-
+  const filteredData = data?.filter(
+    (d) => d.category.title === selectedCategory.title,
+  );
   return (
     <div className={styles.archiveSelectedCategorySections}>
       <div

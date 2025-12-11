@@ -21,6 +21,7 @@ const HistoryMainBlock = () => {
                       <img
                         src={`${API_URL}${p.historyPersonImages[0].file}`}
                         alt={p.name}
+                        loading="lazy"
                       />
                     )}
                   </div>

@@ -68,11 +68,11 @@ const SelectedPhotos = ({
                 className={styles.item}
                 key={item.id}
                 onClick={() => {
-                  dispatch(openModal(item.file));
+                  dispatch(openModal(item.image || ""));
                 }}
               >
                 <div className={styles.image}>
-                  <img src={`${API_URL}${item.file}`} />
+                  <img src={`${API_URL}${item.image}`} />
                 </div>
                 <div className={styles.title}>
                   <p>{item.title}</p>
