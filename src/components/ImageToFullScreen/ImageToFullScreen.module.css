@@ -9,7 +9,8 @@
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(30.6499996185px);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
 }
 .modal .image {
   max-width: 95vw;

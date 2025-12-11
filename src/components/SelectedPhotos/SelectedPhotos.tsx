@@ -23,18 +23,21 @@ const SelectedPhotos = ({
   const dispatch = useDispatch<AppDispatch>();
   const { data: folder } = useGetArchiveDataQuery();
   if (!folder) return null;
-  const currentIndex = folder.findIndex((f) => f.id === data.id);
+
+  const sameCategoryFolders = folder.filter(
+    (f) => f.category.id === data.category.id,
+  );
+
+  const currentIndex = sameCategoryFolders.findIndex((f) => f.id === data.id);
 
   const prevFolder = () => {
-    if (!folder) return;
-    const currentIndex = folder.findIndex((f) => f.id === data.id);
-    if (setCurrentFolder) setCurrentFolder(folder[currentIndex - 1]);
+    if (currentIndex <= 0) return;
+    setCurrentFolder?.(sameCategoryFolders[currentIndex - 1]);
   };
 
   const nextFolder = () => {
-    if (!folder) return;
-    const currentIndex = folder.findIndex((f) => f.id === data.id);
-    if (setCurrentFolder) setCurrentFolder(folder[currentIndex + 1]);
+    if (currentIndex >= sameCategoryFolders.length - 1) return;
+    setCurrentFolder?.(sameCategoryFolders[currentIndex + 1]);
   };
 
   return (
@@ -49,7 +52,7 @@ const SelectedPhotos = ({
           </button>
           <button
             className={`${styles.nextFolder} ${
-              currentIndex < folder.length - 1 ? "" : styles.hidden
+              currentIndex < sameCategoryFolders.length - 1 ? "" : styles.hidden
             }`}
             onClick={nextFolder}
           >
@@ -72,7 +75,11 @@ const SelectedPhotos = ({
                 }}
               >
                 <div className={styles.image}>
-                  <img src={`${API_URL}${item.image}`} />
+                  {item.image !== null ? (
+                    <img src={`${API_URL}${item.image}`} alt={item.title} />
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className={styles.title}>
                   <p>{item.title}</p>

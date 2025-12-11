@@ -9,12 +9,12 @@ import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 
 const ImageToFullScreen = () => {
   const image = useSelector((state: RootState) => state.isModalOpen.image);
-  if (!image) return null;
   const dispatch = useDispatch<AppDispatch>();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const { isDuplicate } = useContext(ScreenModeContext);
-  const isVideo = /\.(mp4|webm|ogg)$/i.test(image);
+  const isVideo = image ? /\.(mp4|webm|ogg)$/i.test(image) : false;
+  if (!image) return null;
 
   const handlePlay = () => {
     if (videoRef.current) {
@@ -34,6 +34,7 @@ const ImageToFullScreen = () => {
         if (!isDuplicate) dispatch(closeModal());
       }}
     >
+      <div className="modal-blur"></div>
       <div className={styles.image} onClick={handleContentClick}>
         {!isVideo && <img src={`${API_URL}${image}`} draggable={false} />}
         {isVideo && (
