@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const response = await fetch(PIN_URL);
       const data = await response.json();
       PIN = data.pinCode; // Сохраняем PIN
-      console.log("PIN загружен:", PIN);
+      // console.log("PIN загружен:", PIN);
     } catch (err) {
       console.error("Ошибка загрузки PIN:", err);
     }

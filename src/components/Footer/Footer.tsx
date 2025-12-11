@@ -8,7 +8,7 @@ const Footer = ({ mainPage }: Props) => {
   return (
     <div className={`${styles.footer} ${mainPage ? styles.mainPage : ""}`}>
       <div className={styles.createdBy}>
-        <p>Разработанно в</p>
+        <p>Разработано в</p>
         <img
           src="/logo/ITLABS_logo_color_blue_2.svg"
           draggable={false}
