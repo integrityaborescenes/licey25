@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const input = document.querySelector("#headerModalInput");
     input.value = "";
     input.style.borderColor = "#00ABEB"; // сброс цвета
+    modal.style.display = "none";
   }
 
   function buttonPressed() {
