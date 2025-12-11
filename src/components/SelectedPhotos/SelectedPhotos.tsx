@@ -8,6 +8,7 @@ import type { AppDispatch } from "../../store/store.ts";
 import { openModal } from "../../store/slices/isModalOpenSlice.ts";
 import { useGetArchiveDataQuery } from "../../store/services/archiveData.api.ts";
 import { API_URL } from "../../config.ts";
+import { useEffect, useRef } from "react";
 
 type Props = {
   data: IArchiveData;
@@ -23,6 +24,14 @@ const SelectedPhotos = ({
   const dispatch = useDispatch<AppDispatch>();
   const { data: folder } = useGetArchiveDataQuery();
   if (!folder) return null;
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [data?.id]);
 
   const sameCategoryFolders = folder.filter(
     (f) => f.category.id === data.category.id,
@@ -64,6 +73,7 @@ const SelectedPhotos = ({
         <div
           className={styles.photosContainer}
           data-scroll-id={`photos-${currentIndex}`}
+          ref={scrollRef}
         >
           {data?.archiveImages.map((item: IArchivesImages) => {
             return (
