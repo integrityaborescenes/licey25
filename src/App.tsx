@@ -12,6 +12,7 @@ import Person from "./pages/Person/Person.tsx";
 import FireDivison from "./pages/FireDivision/FireDivison.tsx";
 import DuplicateScreen from "./pages/DuplicateScreen/DuplicateScreen.tsx";
 import { ScreenModeContext } from "./context/ScreenModeContext.ts";
+import { Navigate } from "react-router";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             </ScreenModeContext.Provider>
           }
         />
+        <Route path="*" element={<Main />} />
       </Routes>
     </BrowserRouter>
   );
