@@ -1,4 +1,5 @@
 import styles from "./Section.module.scss";
+import { memo } from "react";
 
 type Props = {
   title: string;
@@ -32,4 +33,4 @@ const Section = ({ title, block }: Props) => {
     </div>
   );
 };
-export default Section;
+export default memo(Section);
