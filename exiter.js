@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function showModal() {
     document.querySelector("#exiter-modal").style.display = "flex";
+    modal.style.display = "flex";
   }
 
   function hideModal() {
