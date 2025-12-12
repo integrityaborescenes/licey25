@@ -8,7 +8,8 @@ import type { AppDispatch } from "../../store/store.ts";
 import { openModal } from "../../store/slices/isModalOpenSlice.ts";
 import { useGetArchiveDataQuery } from "../../store/services/archiveData.api.ts";
 import { API_URL } from "../../config.ts";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { ScreenModeContext } from "../../context/ScreenModeContext.ts";
 
 type Props = {
   data: IArchiveData;
@@ -21,6 +22,7 @@ const SelectedPhotos = ({
   navigateBetweenFolders,
   setCurrentFolder,
 }: Props) => {
+  const { isDuplicate } = useContext(ScreenModeContext);
   const dispatch = useDispatch<AppDispatch>();
   const { data: folder } = useGetArchiveDataQuery();
   if (!folder) return null;
@@ -78,7 +80,7 @@ const SelectedPhotos = ({
           {data?.archiveImages.map((item: IArchivesImages) => {
             return (
               <div
-                className={styles.item}
+                className={`${styles.item} ${isDuplicate ? styles.duplicate : ""}`}
                 key={item.id}
                 onClick={() => {
                   dispatch(openModal(item.image || ""));
