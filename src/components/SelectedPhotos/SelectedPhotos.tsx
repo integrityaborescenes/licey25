@@ -25,11 +25,10 @@ const SelectedPhotos = ({
   const { isDuplicate } = useContext(ScreenModeContext);
   const dispatch = useDispatch<AppDispatch>();
   const { data: folder } = useGetArchiveDataQuery();
-  if (!folder) return null;
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const [visibleCount, setVisibleCount] = useState(16);
+  const [visibleCount, setVisibleCount] = useState(24);
 
   const images = useMemo(() => {
     return data?.archiveImages || [];
@@ -37,16 +36,18 @@ const SelectedPhotos = ({
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
-    setVisibleCount(16);
+    setVisibleCount(24);
   }, [data?.id]);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
 
-    if (scrollHeight - (scrollTop + clientHeight) < 500) {
-      setVisibleCount((prev) => Math.min(prev + 16, images.length));
+    if (scrollHeight - (scrollTop + clientHeight) < 800) {
+      setVisibleCount((prev) => Math.min(prev + 24, images.length));
     }
   };
+
+  if (!folder) return null;
 
   const sameCategoryFolders = folder.filter(
     (f) => f.category.id === data.category.id,

@@ -30,11 +30,11 @@ const Photos = ({ info: propsInfo }: Props) => {
     if (info) setCurrentFolder(info);
   }, [info]);
 
+  useSyncedScroll(true);
   useSyncDuplicate("archivePhotos", currentFolder, {
     open: isModalOpen,
     image: modalImage,
   });
-  useSyncedScroll(true);
 
   return (
     <>
