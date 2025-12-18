@@ -11,6 +11,23 @@ type Props = {
   personBio?: string;
 };
 
+const renderDescription = (text?: string) => {
+  if (!text) return null;
+
+  const normalizedText = text
+    .replace(/<\/?div>/g, "")
+    .replace(/<br\s*\/?>/gi, "\n");
+
+  const lines = normalizedText.split(/\r\n|\r|\n/);
+
+  return lines.map((line, idx) => {
+    if (line.trim() === "") {
+      return <p key={idx}>&nbsp;</p>;
+    }
+    return <p key={idx} dangerouslySetInnerHTML={{ __html: line }} />;
+  });
+};
+
 const DescriptionAndPhoto = ({
   description,
   images,
@@ -33,14 +50,7 @@ const DescriptionAndPhoto = ({
             className={styles.descriptionCont}
             data-scroll-id={`description-${description?.split("").slice(0, 5).join("")}`}
           >
-            {description &&
-              description
-                .replace(/<\/?div>/g, "")
-                .replace(/<br\s*\/?>/gi, "\n")
-                .replace(/\r\n|\r|\n/g, "\n")
-                .split("\n")
-                .filter((line) => line.trim() !== "")
-                .map((line, idx) => <p key={idx}>{line}</p>)}
+            {description && renderDescription(description)}
           </div>
         </div>
       </div>

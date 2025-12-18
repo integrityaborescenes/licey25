@@ -22,6 +22,24 @@ const HistoryMainBlock = () => {
       setVisibleCount((prev) => Math.min(prev + 6, person?.length || 0));
     }
   };
+
+  const renderHistoryText = (text?: string) => {
+    if (!text) return null;
+
+    const normalizedText = text
+      .replace(/<\/?div>/g, "")
+      .replace(/<br\s*\/?>/gi, "\n");
+
+    const lines = normalizedText.split(/\r\n|\r|\n/);
+
+    return lines.map((line, idx) => {
+      if (line.trim() === "") {
+        return <p key={idx}>&nbsp;</p>;
+      }
+      return <p key={idx} dangerouslySetInnerHTML={{ __html: line }} />;
+    });
+  };
+
   return (
     <div className={styles.historyBlock}>
       <div className={styles.photos}>
@@ -53,9 +71,7 @@ const HistoryMainBlock = () => {
         </div>
       </div>
       <div className={styles.historyInfo}>
-        <div className={styles.text}>
-          <p>{historyText}</p>
-        </div>
+        <div className={styles.text}>{renderHistoryText(historyText)}</div>
       </div>
     </div>
   );
