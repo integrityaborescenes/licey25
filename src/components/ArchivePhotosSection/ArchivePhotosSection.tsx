@@ -15,7 +15,9 @@ const ArchivePhotosSection = ({ selectedCategory }: Props) => {
 
   const filteredData = useMemo(() => {
     return (
-      data?.filter((d) => d.category.title === selectedCategory.title) || []
+      data
+        ?.filter((d) => d.category.title === selectedCategory.title)
+        .filter((d) => d.archiveImages?.some((img) => img.image !== null)) || []
     );
   }, [data, selectedCategory.title]);
   const [visibleCount, setVisibleCount] = useState(25);
@@ -27,7 +29,6 @@ const ArchivePhotosSection = ({ selectedCategory }: Props) => {
       setVisibleCount((prev) => Math.min(prev + 25, filteredData?.length));
     }
   };
-
   return (
     <div className={styles.archiveSelectedCategorySections}>
       <div

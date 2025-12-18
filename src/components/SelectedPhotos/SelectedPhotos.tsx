@@ -31,7 +31,7 @@ const SelectedPhotos = ({
   const [visibleCount, setVisibleCount] = useState(24);
 
   const images = useMemo(() => {
-    return data?.archiveImages || [];
+    return data.archiveImages.filter((img) => img.image !== null);
   }, [data]);
 
   useEffect(() => {
@@ -47,11 +47,13 @@ const SelectedPhotos = ({
     }
   };
 
-  if (!folder) return null;
+  const sameCategoryFolders = useMemo(() => {
+    if (!folder) return [];
 
-  const sameCategoryFolders = folder.filter(
-    (f) => f.category.id === data.category.id,
-  );
+    return folder
+      .filter((f) => f.category.id === data.category.id)
+      .filter((f) => f.archiveImages.some((img) => img.image !== null));
+  }, [folder, data.category.id]);
 
   const currentIndex = sameCategoryFolders.findIndex((f) => f.id === data.id);
 
@@ -98,7 +100,9 @@ const SelectedPhotos = ({
                 className={`${styles.item} ${isDuplicate ? styles.duplicate : ""}`}
                 key={item.id}
                 onClick={() => {
-                  dispatch(openModal(item.image || ""));
+                  if (item.image) {
+                    dispatch(openModal(item.image));
+                  }
                 }}
               >
                 <div className={styles.image}>
