@@ -143,14 +143,7 @@ const WaitMode = ({ isDuplicate }: Props) => {
               );
             }
           }}
-        >
-          <img
-            src="/ico/closeIco.svg"
-            width="40"
-            height="40"
-            draggable={false}
-          />
-        </div>
+        ></div>
       </div>
     </div>,
     document.getElementById("modal")!,
