@@ -79,7 +79,7 @@ const WaitMode = ({ isDuplicate }: Props) => {
     );
 
     return () => window.clearTimeout(timer);
-  }, [current, isActive, files, isVideo, settings?.imageShowTime]);
+  }, [currentIndex, isActive, isVideo, files.length, settings?.imageShowTime]);
 
   const handleVideoEnd = () => {
     setCurrentIndex((prev) => (prev + 1) % files.length);
@@ -129,21 +129,6 @@ const WaitMode = ({ isDuplicate }: Props) => {
             draggable={false}
           />
         )}
-
-        <div
-          className={styles.closeWindow}
-          onClick={() => {
-            if (!isDuplicate) {
-              dispatch(stopWaitMode());
-              socket.send(
-                JSON.stringify({
-                  type: "waitMode",
-                  action: "close",
-                }),
-              );
-            }
-          }}
-        ></div>
       </div>
     </div>,
     document.getElementById("modal")!,
