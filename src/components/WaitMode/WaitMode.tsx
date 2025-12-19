@@ -94,10 +94,6 @@ const WaitMode = ({ isDuplicate }: Props) => {
   )
     return null;
 
-  const handleContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-  };
-
   return createPortal(
     <div
       className={styles.modal}
@@ -114,7 +110,7 @@ const WaitMode = ({ isDuplicate }: Props) => {
         }
       }}
     >
-      <div className={styles.image} onClick={handleContentClick}>
+      <div className={styles.image}>
         {!isVideo && (
           <img src={`${API_URL}${current.file}`} alt="" draggable={false} />
         )}
