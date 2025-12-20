@@ -21,6 +21,7 @@ import {
 } from "../../store/slices/isWaitModeSlice.ts";
 import WaitMode from "../../components/WaitMode/WaitMode.tsx";
 import type { RootState } from "../../store/store.ts";
+import { useReloadData } from "../../hooks/useReloadData.ts";
 
 export default function DuplicateScreen() {
   const [screen, setScreen] = useState({
@@ -38,6 +39,18 @@ export default function DuplicateScreen() {
 
   const dispatch = useDispatch();
   const isActive = useSelector((state: RootState) => state.isWaitMode.isActive);
+
+  const {
+    refetchMain,
+    refetchLicey,
+    refetchArchive,
+    refetchArchiveCategories,
+    refetchPerson,
+    refetchHistory,
+    refetchFire,
+    refetchWait1,
+    refetchWait2,
+  } = useReloadData();
 
   useSyncedScroll(false);
   useEffect(() => {
@@ -74,6 +87,18 @@ export default function DuplicateScreen() {
       ) {
         dispatch(setSlide(event.slide));
       }
+
+      if (event.type === "reloadData") {
+        refetchMain();
+        refetchLicey();
+        refetchArchive();
+        refetchArchiveCategories();
+        refetchPerson();
+        refetchHistory();
+        refetchFire();
+        refetchWait1();
+        refetchWait2();
+      }
     };
 
     socket.addEventListener("message", handler);
@@ -81,7 +106,18 @@ export default function DuplicateScreen() {
     return () => {
       socket.removeEventListener("message", handler);
     };
-  }, [dispatch]);
+  }, [
+    dispatch,
+    refetchMain,
+    refetchLicey,
+    refetchArchive,
+    refetchArchiveCategories,
+    refetchPerson,
+    refetchHistory,
+    refetchFire,
+    refetchWait1,
+    refetchWait2,
+  ]);
 
   const ScreenMap: Record<string, JSX.Element> = {
     main: <Main sliderState={sliderState} />,

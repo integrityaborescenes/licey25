@@ -12,8 +12,13 @@ import Person from "./pages/Person/Person.tsx";
 import FireDivison from "./pages/FireDivision/FireDivison.tsx";
 import DuplicateScreen from "./pages/DuplicateScreen/DuplicateScreen.tsx";
 import { ScreenModeContext } from "./context/ScreenModeContext.ts";
+import { useEffect } from "react";
+import { socket } from "./ws.ts";
 
 function App() {
+  useEffect(() => {
+    socket.send(JSON.stringify({ type: "reloadData" }));
+  }, []);
   return (
     <BrowserRouter>
       <Routes>
