@@ -20,21 +20,10 @@ type Props = {
 const WaitMode = ({ isDuplicate }: Props) => {
   const dispatch = useDispatch();
 
-  const {
-    data: filesRaw = [],
-    isLoading: filesLoading,
-    isFetching: filesFetching,
-  } = useGetWaitModeDataQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
-
-  const {
-    data: settings,
-    isLoading: settingsLoading,
-    isFetching: settingsFetching,
-  } = useGetWaitModeSettingQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data: filesRaw = [], isLoading: filesLoading } =
+    useGetWaitModeDataQuery();
+  const { data: settings, isLoading: settingsLoading } =
+    useGetWaitModeSettingQuery();
 
   const { isActive } = useSelector((state: RootState) => state.isWaitMode);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -99,8 +88,6 @@ const WaitMode = ({ isDuplicate }: Props) => {
   if (
     filesLoading ||
     settingsLoading ||
-    filesFetching ||
-    settingsFetching ||
     !settings ||
     files.length === 0 ||
     !isActive
